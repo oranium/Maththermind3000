@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Maththermind</string>
+    <string name="division">Division</string>
+    <string name="game_mode">game mode</string>
+    <string name="addition">Addition</string>
+    <string name="subtraction">Subtraction</string>
+    <string name="select_difficulty">select difficulty</string>
+    <string name="multiplication">Multiplication</string>
+    <string name="options">Options</string>
+    <string name="scoreboard">scoreboard</string>
+    <string name="main_menu">main menu</string>
+    <string name="start">Start</string>
+    <string name="options_heading">options</string>
+    <string name="music">MUSIC</string>
+    <string name="sound_effects">Sound Effects</string>
+    <string name="soundeffects_toggle">sndeffects_toggle</string>
+    <string name="music_option">Music</string>
+    <string name="music_toggle">music_toggle</string>
+    <string name="score_board">score board</string>
+    <string name="name1">name1</string>
+    <string name="_19">19</string>
+    <string name="_18">18</string>
+    <string name="_17">17</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_5">5</string>
+    <string name="_8">8</string>
+    <string name="_16">16</string>
+    <string name="_15">15</string>
+    <string name="_13">13</string>
+    <string name="_14">14</string>
+    <string name="_12">12</string>
+    <string name="_11">11</string>
+    <string name="_10">10</string>
+    <string name="_7">7</string>
+    <string name="_9">9</string>
+    <string name="_4">4</string>
+    <string name="_20">20</string>
+    <string name="_6">6</string>
+    <string name="_1_1">1 + 1 = ?</string>
+    <string name="string_1_1" />
+    <string name="_01_00">01:00</string>
+    <string name="timer">TIMER</string>
+    <string name="_00000">00000</string>
+    <string name="score">SCORE</string>
+    <string name="time_is_up">TIME IS UP!</string>
+    <string name="play_again">PLAY AGAIN</string>
+    <string name="save_score">save score</string>
+
+</resources>
