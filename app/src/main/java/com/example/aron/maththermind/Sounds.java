@@ -40,4 +40,5 @@ public class Sounds extends AppCompatActivity {
                 sfx_on = true;
             }
         }
+
 }

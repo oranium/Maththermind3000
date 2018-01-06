@@ -50,4 +50,5 @@ public class Options extends AppCompatActivity {
     {
         startActivity(new Intent(this, Sounds.class));
     }
+
 }

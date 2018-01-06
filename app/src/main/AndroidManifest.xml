@@ -24,4 +24,5 @@
         <activity android:name=".Sounds" />
     </application>
 
+
 </manifest>
