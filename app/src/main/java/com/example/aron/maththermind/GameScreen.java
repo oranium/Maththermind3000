@@ -52,14 +52,15 @@ public class GameScreen extends AppCompatActivity {
                 @Override
                 public void run() {
                     if(second==60){
-                        tvCurrentTime.setText("0"+minute+":00");
                         minute--;
+                        tvCurrentTime.setText("0"+minute+":59");
+
                     }
                     else if(second>9) {
-                        tvCurrentTime.setText("0"+minute + ":" + second);
+                        tvCurrentTime.setText("0"+minute + ":" + (second-1));
                     }
                     else{
-                        tvCurrentTime.setText("0"+minute+":0"+second);
+                        tvCurrentTime.setText("0"+minute+":0"+(second-1));
                     }
 
                     if(second>0){
