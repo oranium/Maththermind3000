@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\_proggen\Android Projekte\Maththermind-master\Maththermind.iml" filepath="D:\_proggen\Android Projekte\Maththermind-master\Maththermind.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Maththermind-master.iml" filepath="$PROJECT_DIR$/Maththermind-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/maththermind.iml" filepath="$PROJECT_DIR$/.idea/maththermind.iml" />
     </modules>
   </component>
 </project>
