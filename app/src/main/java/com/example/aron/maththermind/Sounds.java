@@ -1,7 +1,10 @@
 package com.example.aron.maththermind;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.aron.maththermind.R;
 
@@ -11,6 +14,8 @@ import com.example.aron.maththermind.R;
 
 public class Sounds extends AppCompatActivity {
         private boolean sfx_on,music_on;
+        private SharedPreferences spSound;
+        private SharedPreferences.Editor spEditor;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -20,25 +25,35 @@ public class Sounds extends AppCompatActivity {
         }
 
         private void initialize_sounds(){
-
+            spSound = getSharedPreferences("sfx", Context.MODE_PRIVATE);
+            spEditor = spSound.edit();
         }
-
+        //use this on music toggle pressed
         private void toggle_music(){
-            if(music_on == true){
-                music_on = false;
+            //if music on, turn off
+            if(spSound.getInt("music",-3)==1){
+                spEditor.putInt("music",0);
+                Toast.makeText(this,"Music off!",Toast.LENGTH_LONG).show();
             }
             else{
-                music_on = true;
+                spEditor.putInt("music",1);
+                Toast.makeText(this,"Music on!",Toast.LENGTH_LONG).show();
             }
+            spEditor.apply();
         }
-
+        //use this on SFX button press
         private void toggle_sfx(){
-            if(sfx_on == true){
-                sfx_on = false;
+            //if sfx on, turn off
+            if(spSound.getInt("sfx",-3)==1){
+                spEditor.putInt("sfx",0);
+                Toast.makeText(this,"SFX off!",Toast.LENGTH_LONG).show();
             }
             else{
-                sfx_on = true;
+                spEditor.putInt("sfx",1);
+                Toast.makeText(this,"SFX on!",Toast.LENGTH_LONG).show();
             }
+            spEditor.apply();
+
         }
 
 }
