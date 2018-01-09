@@ -45,9 +45,9 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
-        SharedPreferences spSound = this.getSharedPreferences("sound",MODE_PRIVATE);
-        SharedPreferences spLevel = this.getSharedPreferences("level", MODE_PRIVATE);
-        if(spSound.getInt("sfx",-3)==-3){
+        SharedPreferences spSound = getSharedPreferences("sound",MODE_PRIVATE);
+        SharedPreferences spLevel = getSharedPreferences("level", MODE_PRIVATE);
+        if(spSound.getInt("sfx",-1)==-1){
             SharedPreferences.Editor soundEditor = spSound.edit();
             soundEditor.putInt("sfx", 1);
             soundEditor.putInt("music",1);
@@ -58,7 +58,7 @@ public class MainScreen extends AppCompatActivity {
                     .show();
         }
 
-        if(spLevel.getInt("lvlAdd",-3)==-3){
+        if(spLevel.getInt("lvlAdd",-1)==-1){
             SharedPreferences.Editor lvlEditor = spLevel.edit();
             lvlEditor.putInt("lvlAdd",1);
             lvlEditor.putInt("lvlSubt",1);
@@ -68,7 +68,6 @@ public class MainScreen extends AppCompatActivity {
             Toast.makeText(
                     this,"Edited preferences: enabled everything",Toast.LENGTH_LONG)
                     .show();
-
         }
     }
 
