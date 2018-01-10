@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Random;
@@ -27,10 +29,13 @@ public class GameScreen extends AppCompatActivity {
     short lives;
     int addPoints,subtPoints,multPoints,divPoints;
     int addDif,subtDif,multDif,divDif;
+    List<Integer> nextOp;
+    int nextOpSize;
     SharedPreferences spLevel;
     Intent intent;
     ConstraintLayout constraintLayout;
     Timer gameTimer;
+    Random rand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +66,27 @@ public class GameScreen extends AppCompatActivity {
         subtPoints = 20*subtDif;
         multPoints = 40*multDif;
         divPoints = 60*divDif;
+        nextOp = new ArrayList<>();
+        //note that 0:addition , 1:subtraction, 2:multiplication , 3: division
+        if(!(addDif==0)){
+            nextOp.add(0);
+        }
+        if(!(subtDif==0)){
+            nextOp.add(1);
+        }
+        if(!(multDif==0)){
+            nextOp.add(2);
+        }
+        if(!(divDif==0)){
+            nextOp.add(3);
 
+        }
+
+        nextOpSize = nextOp.size();
         timer_start();
-
+        /*TODO: make this work and hand it over to generate_exercise(int curOp)
+         * <code> curOp = nextOp.get(rand.nextInt(nextOpSize())); </code>
+         */
     }
 
     public void timer_start(){
@@ -138,6 +161,23 @@ public class GameScreen extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    public void generate_exercise(int curOp){
+        switch(curOp){
+            case 0: generate_addition(); break;
+            case 1: generate_subtraction(); break;
+            case 2: generate_multiplication(); break;
+            case 3: generate_division(); break;
+        }
+    }
+
+    public void generate_addition(){}
+
+    public void generate_subtraction(){}
+
+    public void generate_multiplication(){}
+
+    public void generate_division(){}
 }
 
 
