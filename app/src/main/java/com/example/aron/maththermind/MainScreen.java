@@ -9,10 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 public class MainScreen extends AppCompatActivity {
 
-    private SharedPreferences spLvl;
-
+    private SharedPreferences spLvl,spSound;
     Button btn_start;
     Button btn_scoreboard;
     Button btn_options;
@@ -22,7 +23,6 @@ public class MainScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        spLvl = getSharedPreferences("level", MODE_PRIVATE);
 
         btn_start = findViewById(R.id.btn_start);
         btn_scoreboard = findViewById(R.id.btn_scoreboard);
@@ -48,9 +48,8 @@ public class MainScreen extends AppCompatActivity {
                 startOptionsActivity();
             }
         });
-
-        SharedPreferences spSound = getSharedPreferences("sound",MODE_PRIVATE);
-        SharedPreferences spLevel = getSharedPreferences("level", MODE_PRIVATE);
+        spLvl = getSharedPreferences("level", MODE_PRIVATE);
+        spSound = getSharedPreferences("sound",MODE_PRIVATE);
         if(spSound.getInt("sfx",-1)==-1){
             SharedPreferences.Editor soundEditor = spSound.edit();
             soundEditor.putInt("sfx", 1);
@@ -61,6 +60,7 @@ public class MainScreen extends AppCompatActivity {
                     this, "Edited preferences: sfx, music on!", Toast.LENGTH_LONG)
                     .show();
         }
+
 
         if(spLevel.getInt("lvlAdd",-1)==-1){
             SharedPreferences.Editor lvlEditor = spLevel.edit();
