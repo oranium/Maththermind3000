@@ -83,7 +83,8 @@ public class MainScreen extends AppCompatActivity {
         }
         else
         {
-            startActivity(new Intent(this, GameScreen.class));
+            Intent intent = new Intent(this, GameScreen.class);
+            startActivity(intent);
         }
     }
 
