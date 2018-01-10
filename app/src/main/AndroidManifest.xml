@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameScreen" />
+        <activity
+            android:name=".GameScreen"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".Options" />
         <activity android:name=".ScoreBoard" />
         <activity android:name=".Gamemode" />

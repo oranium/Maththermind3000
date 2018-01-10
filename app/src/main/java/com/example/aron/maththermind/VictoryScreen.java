@@ -13,6 +13,8 @@ import android.widget.Button;
 public class VictoryScreen extends AppCompatActivity {
 
     Button btnPlayAgain;
+    Button btnBackToMainMenu;
+    Button btnToScoreBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +22,27 @@ public class VictoryScreen extends AppCompatActivity {
         setContentView(R.layout.victory_screen);
 
         btnPlayAgain = findViewById(R.id.btn_playagain);
-
+        btnBackToMainMenu = findViewById(R.id.btn_vicScreen_to_menu);
+        btnToScoreBoard = findViewById(R.id.btn_vicScreen_to_scoreboard);
 
         btnPlayAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startGameScreenActivity();
+            }
+        });
+
+        btnBackToMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        btnToScoreBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startScoreBoardActivity();
             }
         });
     }
@@ -36,4 +53,12 @@ public class VictoryScreen extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    private void startScoreBoardActivity()
+    {
+        Intent intent = new Intent(this, ScoreBoard.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

@@ -110,7 +110,7 @@ public class GameScreen extends AppCompatActivity {
                         tvCurrentTime.setText("0"+minute+":59");
 
                     }
-                    else if(second>9) {
+                    else if(second>10) {
                         tvCurrentTime.setText("0"+minute + ":" + (second-1));
                     }
                     else{
