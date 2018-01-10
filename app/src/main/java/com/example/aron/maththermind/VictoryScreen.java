@@ -33,7 +33,7 @@ public class VictoryScreen extends AppCompatActivity {
     private void startGameScreenActivity()
     {
         Intent intent = new Intent(this, GameScreen.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 }

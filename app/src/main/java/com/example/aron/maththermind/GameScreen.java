@@ -131,6 +131,7 @@ public class GameScreen extends AppCompatActivity {
             gameTimer.cancel();
             intent = new Intent(GameScreen.this, VictoryScreen.class);
             startActivity(intent);
+            finish();
         }
 
     }
