@@ -6,6 +6,9 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,12 +29,12 @@ public class GameScreen extends AppCompatActivity {
     int minute,second;
     int op1,op2,res;
     int score;
-    short curOp;
     short lives;
     int addPoints,subtPoints,multPoints,divPoints;
     int addDif,subtDif,multDif,divDif;
     List<Integer> nextOp;
     int nextOpSize;
+    int curOp;
     SharedPreferences spLevel;
     Intent intent;
     ConstraintLayout constraintLayout;
@@ -45,7 +48,9 @@ public class GameScreen extends AppCompatActivity {
         setContentView(R.layout.game_screen);
         initialize_activity();
     }
+
     public void initialize_activity(){
+        rand = new Random();
         wrong = MediaPlayer.create(this,R.raw.wrong_sfx);
         correct = MediaPlayer.create(this,R.raw.correct_sfx);
         dead = MediaPlayer.create(this,R.raw.sad_horn);
@@ -70,6 +75,7 @@ public class GameScreen extends AppCompatActivity {
         subtPoints = 20*subtDif;
         multPoints = 40*multDif;
         divPoints = 60*divDif;
+
         nextOp = new ArrayList<>();
         //note that 0:addition , 1:subtraction, 2:multiplication , 3: division
         if(!(addDif==0)){
@@ -83,10 +89,33 @@ public class GameScreen extends AppCompatActivity {
         }
         if(!(divDif==0)){
             nextOp.add(3);
-
         }
-
         nextOpSize = nextOp.size();
+
+        etInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int i, int i1, int i2) {
+                if (query.length() == Integer.toString(res).length())
+                {
+                    check_res(Integer.parseInt(query.toString()));
+                    generate_exercise();
+                    etInput.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        generate_exercise();
+
         timer_start();
         /*TODO: make this work and hand it over to generate_exercise(int curOp)
          * <code> curOp = nextOp.get(rand.nextInt(nextOpSize)); </code>
@@ -126,6 +155,7 @@ public class GameScreen extends AppCompatActivity {
 
         }
     }
+
     private class endGameTask extends TimerTask{
         public void run(){
             gameTimer.cancel();
@@ -137,57 +167,125 @@ public class GameScreen extends AppCompatActivity {
     }
 
     //checks the result and adds points or subtracts lives
-    public void check_res(int userRes,short curOp){
+    public void check_res(int userRes){
         //add corresponding number of points to score if task is right
-        if(userRes==res){
-            switch(curOp){
-                case 0: score+=addPoints; break;
-                case 1: score+=subtPoints; break;
-                case 2: score+=multPoints; break;
-                case 3: score+=divPoints; break;
-
+        if (userRes == res)
+        {
+            switch (curOp)
+            {
+                case 0:
+                    score += addPoints;
+                    break;
+                case 1:
+                    score += subtPoints;
+                    break;
+                case 2:
+                    score += multPoints;
+                    break;
+                case 3:
+                    score += divPoints;
+                    break;
             }
+            updateScore();
             correct.start();
 
-
         //subtract a life otherwise and end the game if lives 0
-        }else{
+        }
+        else
+        {
             lives--;
             switch(lives){
-                case 2: constraintLayout.removeView(ivLife3);
-                case 1: constraintLayout.removeView(ivLife2);
-                case 0: constraintLayout.removeView(ivLife1);
+                case 2:
+                    // constraintLayout.removeView(ivLife3);
+                    ivLife3.setVisibility(View.INVISIBLE);
+                    break;
+                case 1:
+                    // constraintLayout.removeView(ivLife2);
+                    ivLife2.setVisibility(View.INVISIBLE);
+                    break;
+                case 0:
+                    // constraintLayout.removeView(ivLife1);
+                    ivLife1.setVisibility(View.INVISIBLE);
+                    break;
             }
 
-        if(correct.isPlaying()){
+            if(correct.isPlaying()){
                 correct.stop();
+            }
+
+            if(wrong.isPlaying()){
+             wrong.stop();
+            }
+            wrong.start();
         }
 
-        if(wrong.isPlaying()){
-            wrong.stop();
-        }
-        wrong.start();
-        }
-        if(lives==0){
+        if (lives == 0)
+        {
             gameTimer.cancel();
             dead.start();
+            intent = new Intent(GameScreen.this, VictoryScreen.class);
             startActivity(intent);
-            finish(); //I HOPE THIS CLOSES THE ACTIVITY
+            finish(); //I HOPE THIS CLOSES THE ACTIVITY <-- yes, it does.
         }
     }
 
-    public void generate_exercise(int curOp){
-        switch(curOp){
-            case 0: generate_addition(); break;
-            case 1: generate_subtraction(); break;
-            case 2: generate_multiplication(); break;
-            case 3: generate_division(); break;
+    private void updateScore()
+    {
+        String newScore = "";
+        if (score >= 10000)
+        {
+            newScore = Integer.toString(score);
         }
+        else if (score >= 1000)
+        {
+            newScore = "0" + Integer.toString(score);
+        }
+        else if (score >= 100)
+        {
+            newScore = "00" + Integer.toString(score);
+        }
+        else if (score >= 10)
+        {
+            newScore = "000" + Integer.toString(score);
+        }
+        tvCurrentScore.setText(newScore);
+    }
+
+    private void getNextOp()
+    {
+        curOp = rand.nextInt(nextOpSize);
+        curOp = nextOp.get(curOp);
+    }
+
+    public void generate_exercise(){
+        getNextOp();
+        String newExercise = "";
+        switch(curOp){
+            case 0:
+                generate_addition();
+                newExercise = op1 + " + ";
+                break;
+            case 1:
+                generate_subtraction();
+                newExercise = op1 + " - ";
+                break;
+            case 2:
+                generate_multiplication();
+                newExercise = op1 + " * ";
+                break;
+            case 3:
+                generate_division();
+                newExercise = Integer.toString(op1) + " : ";
+                break;
+        }
+        newExercise += Integer.toString(op2) + " = ?";
+        tvExercise.setText(newExercise);
     }
 
     public void generate_addition(){
         switch(addDif){
-            case 1: op1=rand.nextInt(21);
+            case 1:
+                op1=rand.nextInt(21);
                 op2=rand.nextInt(21-op1);
                 res=op1+op2;
                 break;
@@ -249,6 +347,7 @@ public class GameScreen extends AppCompatActivity {
                     op1=res*op2; break;
         }
     }
+
 }
 
 
