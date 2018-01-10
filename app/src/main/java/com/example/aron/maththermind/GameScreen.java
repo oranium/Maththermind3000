@@ -85,7 +85,7 @@ public class GameScreen extends AppCompatActivity {
         nextOpSize = nextOp.size();
         timer_start();
         /*TODO: make this work and hand it over to generate_exercise(int curOp)
-         * <code> curOp = nextOp.get(rand.nextInt(nextOpSize())); </code>
+         * <code> curOp = nextOp.get(rand.nextInt(nextOpSize)); </code>
          */
     }
 
@@ -171,13 +171,70 @@ public class GameScreen extends AppCompatActivity {
         }
     }
 
-    public void generate_addition(){}
+    public void generate_addition(){
+        switch(addDif){
+            case 1: op1=rand.nextInt(21);
+                op2=rand.nextInt(21-op1);
+                res=op1+op2;
+                break;
+            case 2: op1=rand.nextInt(101);
+                op2=rand.nextInt(101-op1);
+                res=op1+op2;
+                break;
+            case 3: op1=rand.nextInt(1001);
+                op2=rand.nextInt(1001-op1);
+                res=op1+op2;
+                break;
+        }
+    }
 
-    public void generate_subtraction(){}
+    public void generate_subtraction(){
+        switch(subtDif){
+            case 1: op1=rand.nextInt(21);
+                    op2=rand.nextInt(21-op1);
+                    res=op1-op2;
+                    break;
+            case 2: op1=rand.nextInt(101);
+                    op2=rand.nextInt(101-op1);
+                    res=op1-op2;
+                    break;
+            case 3: op1=rand.nextInt(1001);
+                    op2=rand.nextInt(1001-op1);
+                    res=op1-op2;
+                    break;
+        }
+    }
 
-    public void generate_multiplication(){}
+    public void generate_multiplication(){
+        switch(multDif){
+            case 1: op1=rand.nextInt(11);
+                    op2=rand.nextInt(11);
+                    res=op1*op2;
+                    break;
+            case 2: op1=rand.nextInt(21);
+                    op2=rand.nextInt(21);
+                    res=op1*op2; break;
+            case 3: op1=rand.nextInt(31);
+                    op2=rand.nextInt(31);
+                    res=op1*op2; break;
+        }
+    }
 
-    public void generate_division(){}
+    //this is done by switching variables from multiplication. maybe its wrong. am lazy.
+    public void generate_division(){
+        switch(divDif){
+            case 1: res=rand.nextInt(11);
+                    op2=rand.nextInt(11);
+                    op1=res*op2;
+                    break;
+            case 2: res=rand.nextInt(21);
+                    op2=rand.nextInt(21);
+                    op1=res*op2;break;
+            case 3: res=rand.nextInt(31);
+                    op2=rand.nextInt(31);
+                    op1=res*op2; break;
+        }
+    }
 }
 
 
