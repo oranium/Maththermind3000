@@ -36,6 +36,8 @@ public class GameScreen extends AppCompatActivity {
     int nextOpSize;
     int curOp;
     SharedPreferences spLevel;
+    SharedPreferences spScore;
+    SharedPreferences.Editor spScoreEditor;
     Intent intent;
     ConstraintLayout constraintLayout;
     Timer gameTimer;
@@ -66,6 +68,8 @@ public class GameScreen extends AppCompatActivity {
         lives=3;
         score = 0;
         spLevel = getSharedPreferences("level",MODE_PRIVATE);
+        spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
+        spScoreEditor = spScore.edit();
         constraintLayout = new ConstraintLayout(this);
         addDif=spLevel.getInt("lvlAdd",1);
         subtDif=spLevel.getInt("lvlSubt",1);
@@ -159,9 +163,7 @@ public class GameScreen extends AppCompatActivity {
     private class endGameTask extends TimerTask{
         public void run(){
             gameTimer.cancel();
-            intent = new Intent(GameScreen.this, VictoryScreen.class);
-            startActivity(intent);
-            finish();
+            startVictoryScreenActivity();
         }
 
     }
@@ -228,9 +230,7 @@ public class GameScreen extends AppCompatActivity {
         {
             gameTimer.cancel();
             dead.start();
-            intent = new Intent(GameScreen.this, VictoryScreen.class);
-            startActivity(intent);
-            finish(); //I HOPE THIS CLOSES THE ACTIVITY <-- yes, it does.
+            startVictoryScreenActivity();
         }
     }
 
@@ -386,7 +386,13 @@ public class GameScreen extends AppCompatActivity {
         }
     }
 
+    private void startVictoryScreenActivity()
+    {
+        spScoreEditor.putInt("score", score);
+        spScoreEditor.commit();
+        intent = new Intent(GameScreen.this, VictoryScreen.class);
+        startActivity(intent);
+        finish(); //I HOPE THIS CLOSES THE ACTIVITY <-- yes, it does.
+    }
+
 }
-
-
-
