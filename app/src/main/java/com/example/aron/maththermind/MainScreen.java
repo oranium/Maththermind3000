@@ -62,8 +62,8 @@ public class MainScreen extends AppCompatActivity {
         }
 
 
-        if(spLevel.getInt("lvlAdd",-1)==-1){
-            SharedPreferences.Editor lvlEditor = spLevel.edit();
+        if(spLvl.getInt("lvlAdd",-1)==-1){
+            SharedPreferences.Editor lvlEditor = spLvl.edit();
             lvlEditor.putInt("lvlAdd",1);
             lvlEditor.putInt("lvlSubt",1);
             lvlEditor.putInt("lvlDiv",1);
