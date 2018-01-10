@@ -37,9 +37,9 @@ public class Gamemode extends AppCompatActivity {
         seekBarDivision = findViewById(R.id.seekBar_division);
 
         seekBarAddition.setProgress(spLvl.getInt("lvlAdd", 1));
-        seekBarSubtraction.setProgress(spLvl.getInt("lvlSubt", 0));
-        seekBarMultiplication.setProgress(spLvl.getInt("lvlMult", 0));
-        seekBarDivision.setProgress(spLvl.getInt("lvlDiv", 0));
+        seekBarSubtraction.setProgress(spLvl.getInt("lvlSubt", 1));
+        seekBarMultiplication.setProgress(spLvl.getInt("lvlMult", 1));
+        seekBarDivision.setProgress(spLvl.getInt("lvlDiv", 1));
 
         seekBarAddition.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
