@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 public class MainScreen extends AppCompatActivity {
 
+    private SharedPreferences spLvl;
+
     Button btn_start;
     Button btn_scoreboard;
     Button btn_options;
@@ -19,6 +21,8 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+
+        spLvl = getSharedPreferences("level", MODE_PRIVATE);
 
         btn_start = findViewById(R.id.btn_start);
         btn_scoreboard = findViewById(R.id.btn_scoreboard);
@@ -73,8 +77,14 @@ public class MainScreen extends AppCompatActivity {
 
     private void startGameScreenActivity()
     {
-
-        startActivity(new Intent(this, GameScreen.class));
+        if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0)
+        {
+            Toast.makeText(this, "Enable at least one operation in options.", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            startActivity(new Intent(this, GameScreen.class));
+        }
     }
 
     private void startScoreBoardActivity()
