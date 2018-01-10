@@ -187,6 +187,10 @@ public class GameScreen extends AppCompatActivity {
                     break;
             }
             updateScore();
+            if (correct.isPlaying())
+            {
+                correct.stop();
+            }
             correct.start();
 
         //subtract a life otherwise and end the game if lives 0
@@ -213,8 +217,9 @@ public class GameScreen extends AppCompatActivity {
                 correct.stop();
             }
 
-            if(wrong.isPlaying()){
-             wrong.stop();
+            if(wrong.isPlaying())
+            {
+                wrong.stop();
             }
             wrong.start();
         }
@@ -282,69 +287,102 @@ public class GameScreen extends AppCompatActivity {
         tvExercise.setText(newExercise);
     }
 
+
+    /*
+     * old stuff:
+     *
+     * op1=rand.nextInt(21);
+     * op2=rand.nextInt(21-op1);
+     * res=op1+op2;
+     *
+     * op1=rand.nextInt(101);
+     * op2=rand.nextInt(101-op1);
+     * res=op1-op2;
+     *
+     * res=rand.nextInt(11);
+     * op2=rand.nextInt(11);
+     * op1=res*op2;
+     * break;
+     */
+
     public void generate_addition(){
         switch(addDif){
             case 1:
-                op1=rand.nextInt(21);
-                op2=rand.nextInt(21-op1);
-                res=op1+op2;
+                res = rand.nextInt(21);
+                op1 = rand.nextInt(res + 1);
+                op2 = res - op1;
                 break;
-            case 2: op1=rand.nextInt(101);
-                op2=rand.nextInt(101-op1);
-                res=op1+op2;
+            case 2:
+                res = rand.nextInt(101);
+                op1 = rand.nextInt(res + 1);
+                op2 = res - op1;
                 break;
-            case 3: op1=rand.nextInt(1001);
-                op2=rand.nextInt(1001-op1);
-                res=op1+op2;
+            case 3:
+                res = rand.nextInt(1001);
+                op1 = rand.nextInt(res + 1);
+                op2 = res - op1;
                 break;
         }
     }
 
     public void generate_subtraction(){
         switch(subtDif){
-            case 1: op1=rand.nextInt(21);
-                    op2=rand.nextInt(21-op1);
-                    res=op1-op2;
-                    break;
-            case 2: op1=rand.nextInt(101);
-                    op2=rand.nextInt(101-op1);
-                    res=op1-op2;
-                    break;
-            case 3: op1=rand.nextInt(1001);
-                    op2=rand.nextInt(1001-op1);
-                    res=op1-op2;
-                    break;
+            case 1:
+                op1 = rand.nextInt(21);
+                op2 = rand.nextInt(op1 + 1);
+                res = op1 - op2;
+                break;
+            case 2:
+                op1 = rand.nextInt(101);
+                op2 = rand.nextInt(op1 + 1);
+                res = op1 - op2;
+                break;
+            case 3:
+                op1 = rand.nextInt(1001);
+                op2 = rand.nextInt(op1 + 1);
+                res = op1 - op2;
+                break;
         }
     }
 
     public void generate_multiplication(){
         switch(multDif){
-            case 1: op1=rand.nextInt(11);
-                    op2=rand.nextInt(11);
-                    res=op1*op2;
-                    break;
-            case 2: op1=rand.nextInt(21);
-                    op2=rand.nextInt(21);
-                    res=op1*op2; break;
-            case 3: op1=rand.nextInt(31);
-                    op2=rand.nextInt(31);
-                    res=op1*op2; break;
+            case 1:
+                op1 = rand.nextInt(11);
+                op2 = rand.nextInt(11);
+                res = op1 * op2;
+                break;
+            case 2:
+                op1 = rand.nextInt(21);
+                op2 = rand.nextInt(21);
+                res = op1 * op2;
+                break;
+            case 3:
+                op1 = rand.nextInt(31);
+                op2 = rand.nextInt(31);
+                res = op1 * op2;
+                break;
         }
     }
 
-    //this is done by switching variables from multiplication. maybe its wrong. am lazy.
+    //this is done by switching variables from multiplication. maybe its wrong. am lazy. <-- yes, it was wrong. :D
     public void generate_division(){
         switch(divDif){
-            case 1: res=rand.nextInt(11);
-                    op2=rand.nextInt(11);
-                    op1=res*op2;
-                    break;
-            case 2: res=rand.nextInt(21);
-                    op2=rand.nextInt(21);
-                    op1=res*op2;break;
-            case 3: res=rand.nextInt(31);
-                    op2=rand.nextInt(31);
-                    op1=res*op2; break;
+            case 1:
+                res = rand.nextInt(11);
+                op2 = rand.nextInt(10) + 1;
+                op1 = res * op2;
+                break;
+            case 2:
+                res = rand.nextInt(21);
+                op2 = rand.nextInt(20) + 1;
+                op1 = res * op2;
+                break;
+            case 3:
+                res = rand.nextInt(31);
+                op2 = rand.nextInt(30) + 1;
+                op1 = res * op2;
+                break;
         }
     }
 
