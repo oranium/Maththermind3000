@@ -2,6 +2,7 @@ package com.example.aron.maththermind;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class GameScreen extends AppCompatActivity {
     ConstraintLayout constraintLayout;
     Timer gameTimer;
     Random rand;
+    MediaPlayer wrong,correct,dead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,9 @@ public class GameScreen extends AppCompatActivity {
         initialize_activity();
     }
     public void initialize_activity(){
-
+        wrong = MediaPlayer.create(this,R.raw.wrong_sfx);
+        correct = MediaPlayer.create(this,R.raw.correct_sfx);
+        dead = MediaPlayer.create(this,R.raw.sad_horn);
         tvCurrentTime =(findViewById(R.id.txtView_currenttime));
         tvCurrentScore=(findViewById((R.id.txtView_currentscore)));
         tvExercise=(findViewById(R.id.txtView_exercise));
@@ -142,11 +146,11 @@ public class GameScreen extends AppCompatActivity {
                 case 3: score+=divPoints; break;
 
             }
-        //TODO: play right sound
+            correct.start();
+
 
         //subtract a life otherwise and end the game if lives 0
         }else{
-            //TODO: play wrong sound
             lives--;
             switch(lives){
                 case 2: constraintLayout.removeView(ivLife3);
@@ -154,11 +158,20 @@ public class GameScreen extends AppCompatActivity {
                 case 0: constraintLayout.removeView(ivLife1);
             }
 
+        if(correct.isPlaying()){
+                correct.stop();
+        }
+
+        if(wrong.isPlaying()){
+            wrong.stop();
+        }
+        wrong.start();
         }
         if(lives==0){
             gameTimer.cancel();
-            //TODO: play sad sound
+            dead.start();
             startActivity(intent);
+            finish(); //I HOPE THIS CLOSES THE ACTIVITY
         }
     }
 
