@@ -42,7 +42,7 @@ public class GameScreen extends AppCompatActivity {
     ConstraintLayout constraintLayout;
     Timer gameTimer;
     Random rand;
-    MediaPlayer wrong,correct,dead;
+    MediaPlayer mpWrong,mpCorrect,mpDead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +53,9 @@ public class GameScreen extends AppCompatActivity {
 
     public void initialize_activity(){
         rand = new Random();
-        wrong = MediaPlayer.create(this,R.raw.wrong_sfx);
-        correct = MediaPlayer.create(this,R.raw.correct_sfx);
-        dead = MediaPlayer.create(this,R.raw.sad_horn);
+        mpWrong = MediaPlayer.create(this,R.raw.wrong_sfx);
+        mpCorrect = MediaPlayer.create(this,R.raw.correct_sfx);
+        mpDead = MediaPlayer.create(this,R.raw.sad_horn);
         tvCurrentTime =(findViewById(R.id.txtView_currenttime));
         tvCurrentScore=(findViewById((R.id.txtView_currentscore)));
         tvExercise=(findViewById(R.id.txtView_exercise));
@@ -189,11 +189,11 @@ public class GameScreen extends AppCompatActivity {
                     break;
             }
             updateScore();
-            if (correct.isPlaying())
+            /*if (correct.isPlaying())
             {
-                correct.stop();
-            }
-            correct.start();
+                correct.stop();             this wasn't even complete
+            }*/
+            mpCorrect.start();
 
         //subtract a life otherwise and end the game if lives 0
         }
@@ -215,21 +215,21 @@ public class GameScreen extends AppCompatActivity {
                     break;
             }
 
-            if(correct.isPlaying()){
+            /*if(correct.isPlaying()){
                 correct.stop();
             }
 
-            if(wrong.isPlaying())
+            if(wrong.isPlaying())           i commented this out because nothing works
             {
                 wrong.stop();
-            }
-            wrong.start();
+            }*/
+            mpWrong.start();
         }
 
         if (lives == 0)
         {
             gameTimer.cancel();
-            dead.start();
+            mpDead.start();
             startVictoryScreenActivity();
         }
     }
