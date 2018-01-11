@@ -63,9 +63,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtView_exercise"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="14dp"
             android:ems="3"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/txtView_exercise"
