@@ -47,7 +47,7 @@
     <string name="time_is_up">TIME IS UP!</string>
     <string name="play_again">PLAY AGAIN</string>
     <string name="save_score">save score</string>
-    <string name="todo">todo</string>
+    <!-- <string name="todo">todo</string> -->
     <string name="enter_your_name_to_save_the_score">Enter your name to save the score!</string>
     <string name="todo">todo</string>
     <string name="myhighscore">myhighscore</string>
