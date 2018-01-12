@@ -22,8 +22,10 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        initializeApp();
+    }
 
-
+    private void initializeApp(){
         btn_start = findViewById(R.id.btn_start);
         btn_scoreboard = findViewById(R.id.btn_scoreboard);
         btn_options = findViewById(R.id.btn_options);
