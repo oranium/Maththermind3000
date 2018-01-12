@@ -2,6 +2,8 @@ package com.example.aron.maththermind;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -57,6 +59,9 @@ public class VictoryScreen extends AppCompatActivity {
         });
 
         showScore();
+
+        // TODO: check new highscore
+        startNewHighscoreActivity();
     }
 
     private void startGameScreenActivity()
@@ -73,9 +78,16 @@ public class VictoryScreen extends AppCompatActivity {
         finish();
     }
 
+    private void startNewHighscoreActivity()
+    {
+        NewHighscore newHighscore = new NewHighscore(VictoryScreen.this);
+        newHighscore.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        newHighscore.show();
+    }
+
     private void showScore()
     {
-        String newScore = "";
+        String newScore;
         if (score >= 10000)
         {
             newScore = Integer.toString(score);
@@ -91,6 +103,10 @@ public class VictoryScreen extends AppCompatActivity {
         else if (score >= 10)
         {
             newScore = "000" + Integer.toString(score);
+        }
+        else
+        {
+            newScore = "00000";
         }
         tvScore.setText(newScore);
     }

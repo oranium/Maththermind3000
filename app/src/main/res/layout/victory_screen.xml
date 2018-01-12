@@ -17,30 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/txtView_score_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_playagain"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"
-            android:text="@string/enter_your_name_to_save_the_score"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtView_score_name"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/myhighscore"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark" />
-
         <Button
             android:id="@+id/btn_share"
             android:layout_width="30dp"
@@ -91,7 +67,7 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/txtView_currentscore2"
+            android:layout_below="@+id/txtView_newHighscore"
             android:layout_marginTop="19dp"
             android:background="@color/colorPrimaryDark"
             android:text="@string/scoreboard"
@@ -123,6 +99,21 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/txtView_newHighscore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/background_light"
+            android:layout_below="@+id/txtView_currentscore2"
+            android:layout_marginTop="160.0dp"
+            android:text="New Highscore!"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp" />
+
+        <TextView
             android:id="@+id/txtView_timeisup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,7 +121,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@android:color/background_light"
-            android:text="@string/ "
+            android:text="@string/time_is_up"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="35sp"
