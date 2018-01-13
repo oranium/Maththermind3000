@@ -39,54 +39,33 @@ public class ScoreBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_board);
 
+        SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard",MODE_PRIVATE,null);
+        String[] columns = {"name","score"};
+        //initialize and create new adapter with layout list in score_board.xml
         itemsList = new ArrayList<>();
-        SQLiteDatabase scoreDB = null;
+        listView = (ListView) findViewById(R.id.list);
+        adapter = new CustomListAdapter(this, itemsList);
+        listView.setAdapter(adapter);
 
-        try{
-            //create or access score database
-            scoreDB = this.openOrCreateDatabase("scoreboard",MODE_PRIVATE,null);
+        //Cursor cursor = scoreDB.rawQuery("SELECT * FROM scores", null);
+        Cursor cursor = scoreDB.query("scores", columns, null, null, null, null, "score"+" DESC");
 
-            //table: name - score
-            scoreDB.execSQL("CREATE TABLE IF NOT EXISTS scores (name TEXT, score TEXT);");
 
-            //select all rows from table
-            Cursor cursor = scoreDB.rawQuery("SELECT * FROM scores",null);
+        cursor.moveToFirst();
 
-            //if no rows: insert into table
-            if(cursor!=null){
-                if(cursor.getCount()<10){
-                    scoreDB.execSQL("INSERT INTO scores (name,score) VALUES ('placeholder','9001');");
-                    scoreDB.execSQL("INSERT INTO scores (name,score) VALUES ('haceplolder','69');");
-                    scoreDB.execSQL("INSERT INTO scores (name,score) VALUES ('faceboulder','420');");
-                    System.out.println(scoreDB.getPageSize());
-                }
-            }
-        }catch(Exception e){
-        }finally{
-            //initialize and create new adapter with layout list in score_board.xml
-            listView = (ListView) findViewById(R.id.list);
-            adapter = new CustomListAdapter(this, itemsList);
-            listView.setAdapter(adapter);
-
-            Cursor cursor = scoreDB.rawQuery("SELECT * FROM scores",null);
-
-            cursor.moveToFirst();
-
-                //read all rows from scoreDB and add to Array
-                while(!cursor.isAfterLast()){
-                    Items items = new Items();
-
-                    items.setName(cursor.getString(0));
-                    items.setScore(cursor.getString(1));
-                    itemsList.add(items);
-                    cursor.moveToNext();
-                    adapter.notifyDataSetChanged();
-
-            }
-            //to adapter: populate list with Array
-            //adapter.notifyDataSetChanged();
+        //read all rows from scoreDB and add to Array
+        while (!cursor.isAfterLast()) {
+            Items items = new Items();
+            items.setName(cursor.getString(0));
+            items.setScore(cursor.getString(1));
+            itemsList.add(items);
+            cursor.moveToNext();
         }
-
+        //to adapter: populate list with Array
+        adapter.notifyDataSetChanged();
 
     }
 }
+
+
+
