@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -189,10 +190,25 @@ public class GameScreen extends AppCompatActivity {
                     break;
             }
             updateScore();
-            /*if (correct.isPlaying())
+
+            if(mpCorrect.isPlaying()){
+                mpCorrect.stop();
+                try{
+                    mpCorrect.prepare();
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+
+            if(mpWrong.isPlaying())
             {
-                correct.stop();             this wasn't even complete
-            }*/
+                mpWrong.stop();
+                try{
+                    mpWrong.prepare();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
             mpCorrect.start();
 
         //subtract a life otherwise and end the game if lives 0
@@ -202,34 +218,44 @@ public class GameScreen extends AppCompatActivity {
             lives--;
             switch(lives){
                 case 2:
-                    // constraintLayout.removeView(ivLife3);
                     ivLife3.setVisibility(View.INVISIBLE);
                     break;
                 case 1:
-                    // constraintLayout.removeView(ivLife2);
                     ivLife2.setVisibility(View.INVISIBLE);
                     break;
                 case 0:
-                    // constraintLayout.removeView(ivLife1);
                     ivLife1.setVisibility(View.INVISIBLE);
                     break;
             }
 
-            /*if(correct.isPlaying()){
-                correct.stop();
+            if(mpCorrect.isPlaying()){
+                mpCorrect.stop();
+                try{
+                    mpCorrect.prepare();
+                } catch(IOException e){
+                    e.printStackTrace();
+                }
             }
 
-            if(wrong.isPlaying())           i commented this out because nothing works
+            if(mpWrong.isPlaying())
             {
-                wrong.stop();
-            }*/
-            mpWrong.start();
+                mpWrong.stop();
+                try{
+                    mpWrong.prepare();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+            if(lives>0){
+                mpWrong.start();
+            }
         }
 
         if (lives == 0)
         {
-            gameTimer.cancel();
+            mpWrong.stop();
             mpDead.start();
+            gameTimer.cancel();
             startVictoryScreenActivity();
         }
     }
@@ -288,22 +314,6 @@ public class GameScreen extends AppCompatActivity {
     }
 
 
-    /*
-     * old stuff:
-     *
-     * op1=rand.nextInt(21);
-     * op2=rand.nextInt(21-op1);
-     * res=op1+op2;
-     *
-     * op1=rand.nextInt(101);
-     * op2=rand.nextInt(101-op1);
-     * res=op1-op2;
-     *
-     * res=rand.nextInt(11);
-     * op2=rand.nextInt(11);
-     * op1=res*op2;
-     * break;
-     */
 
     public void generate_addition(){
         switch(addDif){
@@ -392,6 +402,10 @@ public class GameScreen extends AppCompatActivity {
         spScoreEditor.commit();
         intent = new Intent(GameScreen.this, VictoryScreen.class);
         startActivity(intent);
+        mpCorrect.release();
+        mpWrong.release();
+        mpCorrect = null;
+        mpWrong = null;
         finish(); //I HOPE THIS CLOSES THE ACTIVITY <-- yes, it does.
     }
 

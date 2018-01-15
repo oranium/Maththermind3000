@@ -29,9 +29,7 @@ public class VictoryScreen extends AppCompatActivity {
     SharedPreferences spScore;
     int score;
 
-    ListView listView;
     List<Items> itemsList;
-    CustomListAdapter adapter;
     Button btnPlayAgain;
     Button btnBackToMainMenu;
     Button btnToScoreBoard;
@@ -116,8 +114,7 @@ public class VictoryScreen extends AppCompatActivity {
     }
 
     private void addToScoreboard() {
-        itemsList = new ArrayList<>();
-        SQLiteDatabase scoreDB = null;
+        SQLiteDatabase scoreDB;
 
         try {
             //create or access score database

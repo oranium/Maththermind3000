@@ -58,27 +58,13 @@ public class ScoreBoard extends AppCompatActivity {
                     cursor.moveToNext();
                 }
             }
+            //to adapter: populate list with Array
             adapter.notifyDataSetChanged();
         }catch(SQLiteException e) {
             e.printStackTrace();
         }
-        //to adapter: populate list with Array
+
     }
 
 }
-
-    /*private boolean checkDataBase() {
-        SQLiteDatabase checkDB = null;
-        try {
-            checkDB = SQLiteDatabase.openDatabase("/data/data/com.example.aron.maththermind/databases/scoreboard.db3", null,
-                    SQLiteDatabase.OPEN_READONLY);
-            checkDB.close();
-        } catch (SQLiteException   e) {
-            // database doesn't exist yet.
-        }
-        return checkDB != null;
-    }*/
-
-
-
 
