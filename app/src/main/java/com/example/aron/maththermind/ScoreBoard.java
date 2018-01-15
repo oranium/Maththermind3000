@@ -45,15 +45,12 @@ public class ScoreBoard extends AppCompatActivity {
         adapter = new CustomListAdapter(this, itemsList);
         listView.setAdapter(adapter);
 
-        //Cursor cursor = scoreDB.rawQuery("SELECT * FROM scores", null);
-        //if(checkDataBase()) {
+        try {
             Cursor cursor = scoreDB.rawQuery("SELECT  * FROM scores ORDER BY score DESC", null);
-
-
             cursor.moveToFirst();
             //read all rows from scoreDB and add to Array
-            for(int i=0;i<10;i++) {
-                if(!cursor.isAfterLast()) {
+            for (int i = 0; i < 10; i++) {
+                if (!cursor.isAfterLast()) {
                     Items items = new Items();
                     items.setName(cursor.getString(0));
                     items.setScore(cursor.getString(1));
@@ -61,11 +58,14 @@ public class ScoreBoard extends AppCompatActivity {
                     cursor.moveToNext();
                 }
             }
-            //to adapter: populate list with Array
             adapter.notifyDataSetChanged();
-        //}
-
+        }catch(SQLiteException e) {
+            e.printStackTrace();
+        }
+        //to adapter: populate list with Array
     }
+
+}
 
     /*private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
@@ -79,7 +79,6 @@ public class ScoreBoard extends AppCompatActivity {
         return checkDB != null;
     }*/
 
-}
 
 
 
