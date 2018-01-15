@@ -75,17 +75,19 @@ public class VictoryScreen extends AppCompatActivity {
 
         // TODO: check new highscore
         startNewHighscoreActivity();
-        addToScoreboard();
+
 
     }
 
     private void startGameScreenActivity() {
+        addToScoreboard();
         Intent intent = new Intent(this, GameScreen.class);
         startActivity(intent);
         finish();
     }
 
     private void startScoreBoardActivity() {
+        addToScoreboard();
         Intent intent = new Intent(this, ScoreBoard.class);
         startActivity(intent);
         finish();
