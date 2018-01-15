@@ -51,14 +51,15 @@ public class ScoreBoard extends AppCompatActivity {
 
 
             cursor.moveToFirst();
-
             //read all rows from scoreDB and add to Array
-            while (!cursor.isAfterLast()) {
-                Items items = new Items();
-                items.setName(cursor.getString(0));
-                items.setScore(cursor.getString(1));
-                itemsList.add(items);
-                cursor.moveToNext();
+            for(int i=0;i<10;i++) {
+                if(!cursor.isAfterLast()) {
+                    Items items = new Items();
+                    items.setName(cursor.getString(0));
+                    items.setScore(cursor.getString(1));
+                    itemsList.add(items);
+                    cursor.moveToNext();
+                }
             }
             //to adapter: populate list with Array
             adapter.notifyDataSetChanged();

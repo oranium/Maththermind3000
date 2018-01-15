@@ -75,6 +75,8 @@ public class VictoryScreen extends AppCompatActivity {
 
         // TODO: check new highscore
         startNewHighscoreActivity();
+        addToScoreboard();
+
     }
 
     private void startGameScreenActivity() {
@@ -84,7 +86,6 @@ public class VictoryScreen extends AppCompatActivity {
     }
 
     private void startScoreBoardActivity() {
-        addToScoreboard();
         Intent intent = new Intent(this, ScoreBoard.class);
         startActivity(intent);
         finish();
@@ -128,10 +129,8 @@ public class VictoryScreen extends AppCompatActivity {
 
             //if no rows: insert into table
             if (cursor != null) {
-                if (cursor.getCount() < 10) {
                     String name = getSharedPreferences("currentScore",MODE_PRIVATE).getString("EnteredName","");
                     scoreDB.execSQL("INSERT INTO scores (name,score) VALUES ('"+name+"','"+score+"');");
-                }
             }
         } catch (Exception e) {
         }
