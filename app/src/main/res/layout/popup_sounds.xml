@@ -100,9 +100,10 @@
         app:layout_constraintVertical_bias="0.016">
 
         <ToggleButton
-            android:id="@+id/toggleButton_soundeffects"
+            android:id="@+id/toggleButton_sfx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/txtView_soundeffects"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignRight="@+id/txtView_soundeffects"
@@ -110,7 +111,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:backgroundTint="@android:color/background_light"
-            tools:targetApi="lollipop" android:layout_alignEnd="@+id/txtView_soundeffects"/>
+            tools:targetApi="lollipop" />
 
         <TextView
             android:id="@+id/txtView_soundeffects"

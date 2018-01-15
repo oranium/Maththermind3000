@@ -52,10 +52,11 @@ public class MainScreen extends AppCompatActivity {
         });
         spLvl = getSharedPreferences("level", MODE_PRIVATE);
         spSound = getSharedPreferences("sound",MODE_PRIVATE);
-        if(spSound.getInt("sfx",-1)==-1){
+        if(spSound.getBoolean("exists",false)==false){
             SharedPreferences.Editor soundEditor = spSound.edit();
-            soundEditor.putInt("sfx", 1);
-            soundEditor.putInt("music",1);
+            soundEditor.putBoolean("sfx", false);
+            soundEditor.putBoolean("music",false);
+            soundEditor.putBoolean("exists",true);
             soundEditor.apply();
             //DEBUGGING ensues
             Toast.makeText(

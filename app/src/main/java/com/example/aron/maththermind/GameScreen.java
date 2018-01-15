@@ -33,14 +33,13 @@ public class GameScreen extends AppCompatActivity {
     short lives;
     int addPoints,subtPoints,multPoints,divPoints;
     int addDif,subtDif,multDif,divDif;
+    Boolean sfxOn,musicOn;
     List<Integer> nextOp;
     int nextOpSize;
     int curOp;
-    SharedPreferences spLevel;
-    SharedPreferences spScore;
+    SharedPreferences spLevel,spScore,spSound;
     SharedPreferences.Editor spScoreEditor;
     Intent intent;
-    ConstraintLayout constraintLayout;
     Timer gameTimer;
     Random rand;
     MediaPlayer mpWrong,mpCorrect,mpDead;
@@ -70,8 +69,8 @@ public class GameScreen extends AppCompatActivity {
         score = 0;
         spLevel = getSharedPreferences("level",MODE_PRIVATE);
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
+        spSound = getSharedPreferences("sound",MODE_PRIVATE);
         spScoreEditor = spScore.edit();
-        constraintLayout = new ConstraintLayout(this);
         addDif=spLevel.getInt("lvlAdd",1);
         subtDif=spLevel.getInt("lvlSubt",1);
         multDif=spLevel.getInt("lvlMult",1);
@@ -80,8 +79,10 @@ public class GameScreen extends AppCompatActivity {
         subtPoints = 20*subtDif;
         multPoints = 40*multDif;
         divPoints = 60*divDif;
-
+        sfxOn = spSound.getBoolean("sfx",false);
+        musicOn = spSound.getBoolean("music",false);
         nextOp = new ArrayList<>();
+
         //note that 0:addition , 1:subtraction, 2:multiplication , 3: division
         if(!(addDif==0)){
             nextOp.add(0);
@@ -122,9 +123,6 @@ public class GameScreen extends AppCompatActivity {
         generate_exercise();
 
         timer_start();
-        /*TODO: make this work and hand it over to generate_exercise(int curOp)
-         * <code> curOp = nextOp.get(rand.nextInt(nextOpSize)); </code>
-         */
     }
 
     public void timer_start(){
@@ -190,33 +188,32 @@ public class GameScreen extends AppCompatActivity {
                     break;
             }
             updateScore();
-
-            if(mpCorrect.isPlaying()){
-                mpCorrect.stop();
-                try{
-                    mpCorrect.prepare();
-                } catch(IOException e){
-                    e.printStackTrace();
+            if(sfxOn) {
+                if (mpCorrect.isPlaying()) {
+                    mpCorrect.stop();
+                    try {
+                        mpCorrect.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            if(mpWrong.isPlaying())
-            {
-                mpWrong.stop();
-                try{
-                    mpWrong.prepare();
-                }catch(IOException e){
-                    e.printStackTrace();
+                if (mpWrong.isPlaying()) {
+                    mpWrong.stop();
+                    try {
+                        mpWrong.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+                mpCorrect.start();
             }
-            mpCorrect.start();
 
         //subtract a life otherwise and end the game if lives 0
         }
-        else
-        {
+        else {
             lives--;
-            switch(lives){
+            switch (lives) {
                 case 2:
                     ivLife3.setVisibility(View.INVISIBLE);
                     break;
@@ -228,33 +225,38 @@ public class GameScreen extends AppCompatActivity {
                     break;
             }
 
-            if(mpCorrect.isPlaying()){
-                mpCorrect.stop();
-                try{
-                    mpCorrect.prepare();
-                } catch(IOException e){
-                    e.printStackTrace();
+            if (sfxOn) {
+                if (mpCorrect.isPlaying()) {
+                    mpCorrect.stop();
+                    try {
+                        mpCorrect.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            if(mpWrong.isPlaying())
-            {
-                mpWrong.stop();
-                try{
-                    mpWrong.prepare();
-                }catch(IOException e){
-                    e.printStackTrace();
+
+                if (mpWrong.isPlaying()) {
+                    mpWrong.stop();
+                    try {
+                        mpWrong.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-            if(lives>0){
-                mpWrong.start();
+                if (lives > 0) {
+                    mpWrong.start();
+                }
             }
         }
 
         if (lives == 0)
         {
-            mpWrong.stop();
-            mpDead.start();
+            if(sfxOn) {
+
+                mpWrong.stop();
+                mpDead.start();
+            }
             gameTimer.cancel();
             startVictoryScreenActivity();
         }
