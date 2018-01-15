@@ -78,14 +78,14 @@ public class VictoryScreen extends AppCompatActivity {
     }
 
     private void startGameScreenActivity() {
-        addToScoreboard();
+        // addToScoreboard();
         Intent intent = new Intent(this, GameScreen.class);
         startActivity(intent);
         finish();
     }
 
     private void startScoreBoardActivity() {
-        addToScoreboard();
+        // addToScoreboard();
         Intent intent = new Intent(this, ScoreBoard.class);
         startActivity(intent);
         finish();
@@ -113,6 +113,7 @@ public class VictoryScreen extends AppCompatActivity {
         tvScore.setText(newScore);
     }
 
+    /*
     private void addToScoreboard() {
         SQLiteDatabase scoreDB;
 
@@ -135,4 +136,5 @@ public class VictoryScreen extends AppCompatActivity {
         }
 
     }
+    */
 }
