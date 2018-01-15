@@ -1,6 +1,7 @@
 package com.example.aron.maththermind;
 
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +27,6 @@ import java.util.List;
  */
 
 public class ScoreBoard extends AppCompatActivity {
-    LinearLayout llscoreBoard;
-    SharedPreferences spScore;
-    SharedPreferences.Editor spScoreEditor;
     private List<Items> itemsList;
     private ListView listView;
     private CustomListAdapter adapter;
@@ -48,23 +46,38 @@ public class ScoreBoard extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         //Cursor cursor = scoreDB.rawQuery("SELECT * FROM scores", null);
-        Cursor cursor = scoreDB.query("scores", columns, null, null, null, null, "score"+" DESC");
+        //if(checkDataBase()) {
+            Cursor cursor = scoreDB.rawQuery("SELECT  * FROM scores ORDER BY score DESC", null);
 
 
-        cursor.moveToFirst();
+            cursor.moveToFirst();
 
-        //read all rows from scoreDB and add to Array
-        while (!cursor.isAfterLast()) {
-            Items items = new Items();
-            items.setName(cursor.getString(0));
-            items.setScore(cursor.getString(1));
-            itemsList.add(items);
-            cursor.moveToNext();
-        }
-        //to adapter: populate list with Array
-        adapter.notifyDataSetChanged();
+            //read all rows from scoreDB and add to Array
+            while (!cursor.isAfterLast()) {
+                Items items = new Items();
+                items.setName(cursor.getString(0));
+                items.setScore(cursor.getString(1));
+                itemsList.add(items);
+                cursor.moveToNext();
+            }
+            //to adapter: populate list with Array
+            adapter.notifyDataSetChanged();
+        //}
 
     }
+
+    /*private boolean checkDataBase() {
+        SQLiteDatabase checkDB = null;
+        try {
+            checkDB = SQLiteDatabase.openDatabase("/data/data/com.example.aron.maththermind/databases/scoreboard.db3", null,
+                    SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        } catch (SQLiteException   e) {
+            // database doesn't exist yet.
+        }
+        return checkDB != null;
+    }*/
+
 }
 
 

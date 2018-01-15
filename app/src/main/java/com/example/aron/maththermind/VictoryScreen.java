@@ -121,7 +121,7 @@ public class VictoryScreen extends AppCompatActivity {
             scoreDB = this.openOrCreateDatabase("scoreboard", MODE_PRIVATE, null);
 
             //table: name - score
-            scoreDB.execSQL("CREATE TABLE IF NOT EXISTS scores (name TEXT, score TEXT);");
+            scoreDB.execSQL("CREATE TABLE IF NOT EXISTS scores (name TEXT, score INTEGER);");
 
             //select all rows from table
             Cursor cursor = scoreDB.rawQuery("SELECT * FROM scores", null);
