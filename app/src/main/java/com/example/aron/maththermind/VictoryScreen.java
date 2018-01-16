@@ -117,6 +117,8 @@ public class VictoryScreen extends AppCompatActivity {
             newScore = "00" + Integer.toString(score);
         } else if (score >= 10) {
             newScore = "000" + Integer.toString(score);
+        } else if (score >= 1) {
+            newScore = "0000" + Integer.toString(score);
         } else {
             newScore = "00000";
         }
