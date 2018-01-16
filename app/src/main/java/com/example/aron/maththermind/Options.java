@@ -13,6 +13,7 @@ import android.widget.Button;
 public class Options extends AppCompatActivity {
     Button btn_gameMode;
     Button btn_sounds;
+    MusicManager musicManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +21,27 @@ public class Options extends AppCompatActivity {
         initialize_options();
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(musicManager!=null) {
+            musicManager.pause();
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&Sounds.musicOn) {
+            musicManager.start();
+        }
+    }
+
     private void initialize_options(){
+        this.musicManager = MainScreen.musicManager;
+        if(Sounds.musicOn) {
+            musicManager.start();
+        }
         btn_gameMode = findViewById(R.id.btn_gameMode);
         btn_sounds = findViewById(R.id.btn_sounds);
 

@@ -17,7 +17,7 @@ public class MainScreen extends AppCompatActivity {
     Button btn_start;
     Button btn_scoreboard;
     Button btn_options;
-    MusicManager musicManager;
+    static MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        if(musicManager.mp!=null) {
-                musicManager.start(this);
+        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&spSound.getBoolean("music",false)) {
+                musicManager.start();
             }
     }
 
@@ -78,17 +78,15 @@ public class MainScreen extends AppCompatActivity {
             soundEditor.apply();
 
         }
-        if(spSound.getBoolean("music",false)){
-            if(musicManager==null){
-                musicManager = new MusicManager();
+            if(musicManager.mp==null){
+                musicManager = new MusicManager(this);
+                musicManager.start();
+                musicManager.pause();
             }
-            else{
-                if(!musicManager.mp.isPlaying()){
-                    musicManager.start(this);
-                }
+            if(spSound.getBoolean("music",false)&&!musicManager.mp.isPlaying()){
+                musicManager.start();
             }
 
-        }
 
 
         if(spLvl.getInt("lvlAdd",-1)==-1){

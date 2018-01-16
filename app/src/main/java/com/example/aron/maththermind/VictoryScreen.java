@@ -40,12 +40,13 @@ public class VictoryScreen extends AppCompatActivity {
     ImageView ivLife1;
     ImageView ivLife2;
     ImageView ivLife3;
+    MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.victory_screen);
-
+        this.musicManager = MainScreen.musicManager;
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
         score = spScore.getInt("score", 0);
         lives = spScore.getInt("lives", 0);
@@ -93,6 +94,22 @@ public class VictoryScreen extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(musicManager!=null) {
+            musicManager.pause();
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&Sounds.musicOn) {
+            musicManager.start();
+        }
     }
 
     private void startGameScreenActivity() {

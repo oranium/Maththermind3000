@@ -18,8 +18,8 @@ public class Sounds extends AppCompatActivity {
         ToggleButton tbSfx,tbMusic;
         private SharedPreferences spSound;
         private SharedPreferences.Editor spEditor;
-        private boolean sfxOn,musicOn;
-        MusicManager musicManager;
+        public static boolean sfxOn,musicOn;
+        static MusicManager musicManager;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,22 @@ public class Sounds extends AppCompatActivity {
             setContentView(R.layout.popup_sounds);
             initialize_sounds();
         }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(musicManager!=null) {
+            musicManager.pause();
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&musicOn) {
+            musicManager.start();
+        }
+    }
 
         private void initialize_sounds(){
 
@@ -36,7 +52,7 @@ public class Sounds extends AppCompatActivity {
             tbSfx =(ToggleButton) findViewById(R.id.toggleButton_sfx);
             sfxOn = spSound.getBoolean("sfx",false);
             musicOn = spSound.getBoolean("music",false);
-
+            this.musicManager = MainScreen.musicManager;
             tbMusic.setChecked(musicOn);
             tbSfx.setChecked(sfxOn);
 
@@ -61,13 +77,12 @@ public class Sounds extends AppCompatActivity {
             if(spSound.getBoolean("music",false)){
                 spEditor.putBoolean("music",false);
                 Toast.makeText(this,"Music off!",Toast.LENGTH_SHORT).show();
-                musicManager.release();
+                musicManager.pause();
             }
             else{
-                musicManager = new MusicManager();
                 spEditor.putBoolean("music",true);
                 Toast.makeText(this,"Music on!",Toast.LENGTH_SHORT).show();
-                musicManager.start(this);
+                musicManager.start();
             }
             spEditor.apply();
         }

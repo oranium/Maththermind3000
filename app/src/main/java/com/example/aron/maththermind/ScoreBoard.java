@@ -31,13 +31,13 @@ public class ScoreBoard extends AppCompatActivity {
     private List<Items> itemsList;
     private ListView listView;
     private CustomListAdapter adapter;
-
+    MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_board);
-
+        this.musicManager = MainScreen.musicManager;
         SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard",MODE_PRIVATE,null);
         String[] columns = {"name","score"};
         //initialize and create new adapter with layout list in score_board.xml
@@ -72,5 +72,20 @@ public class ScoreBoard extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(musicManager!=null) {
+            musicManager.pause();
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&Sounds.musicOn) {
+            musicManager.start();
+        }
+    }
 }
 

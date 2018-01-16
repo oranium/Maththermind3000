@@ -10,20 +10,26 @@ import android.media.MediaPlayer;
 public class MusicManager {
     static int current;
     static MediaPlayer mp;
+    static Context context;
 
-    public static void start(Context context) {
+    public MusicManager(Context context){
+
+        mp = MediaPlayer.create(context,R.raw.elevator_music);
+        this.context = context;
+    }
+
+    public static void start() {
 
         if(mp!=null &&!mp.isPlaying() && mp.getCurrentPosition()>0){
             resume();
         }
-        else if(mp==null){
-            start(context, R.raw.elevator_music);
+        else{
+            start(context,R.raw.elevator_music);
         }
 
     }
 
     public static void start(Context context, int music) {
-        mp = MediaPlayer.create(context, music);
         if (!mp.isPlaying()) {
             mp.start();
             mp.setLooping(true);
