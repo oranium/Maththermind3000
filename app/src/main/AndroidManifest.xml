@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainScreen">
+        <activity
+            android:name=".MainScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,12 +20,23 @@
         </activity>
         <activity
             android:name=".GameScreen"
-            android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".Options" />
-        <activity android:name=".ScoreBoard" />
-        <activity android:name=".Gamemode" />
-        <activity android:name=".VictoryScreen" />
-        <activity android:name=".Sounds" />
+            android:windowSoftInputMode="stateVisible"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Options"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScoreBoard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Gamemode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".VictoryScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Sounds"
+            android:screenOrientation="portrait" />
     </application>
 
 

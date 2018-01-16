@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,12 +29,16 @@ public class VictoryScreen extends AppCompatActivity {
 
     SharedPreferences spScore;
     int score;
+    int lives;
 
     List<Items> itemsList;
     Button btnPlayAgain;
     Button btnBackToMainMenu;
     Button btnToScoreBoard;
     TextView tvScore;
+    ImageView ivLife1;
+    ImageView ivLife2;
+    ImageView ivLife3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +47,15 @@ public class VictoryScreen extends AppCompatActivity {
 
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
         score = spScore.getInt("score", 0);
+        lives = spScore.getInt("lives", 0);
 
         btnPlayAgain = findViewById(R.id.btn_playagain);
         btnBackToMainMenu = findViewById(R.id.btn_vicScreen_to_menu);
         btnToScoreBoard = findViewById(R.id.btn_vicScreen_to_scoreboard);
         tvScore = findViewById(R.id.txtView_currentscore2);
+        ivLife1 = findViewById(R.id.imageView_life);
+        ivLife2 = findViewById(R.id.imageView_life5);
+        ivLife3 = findViewById(R.id.imageView_life1);
 
         btnPlayAgain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +78,7 @@ public class VictoryScreen extends AppCompatActivity {
             }
         });
 
+        showLifes();
         showScore();
 
         // TODO: check new highscore
@@ -111,6 +121,13 @@ public class VictoryScreen extends AppCompatActivity {
             newScore = "00000";
         }
         tvScore.setText(newScore);
+    }
+
+    private void showLifes()
+    {
+        if (lives < 3) ivLife3.setVisibility(View.INVISIBLE);
+        if (lives < 2) ivLife2.setVisibility(View.INVISIBLE);
+        if (lives < 1) ivLife1.setVisibility(View.INVISIBLE);
     }
 
     /*

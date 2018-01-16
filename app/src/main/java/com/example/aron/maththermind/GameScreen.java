@@ -401,6 +401,7 @@ public class GameScreen extends AppCompatActivity {
     private void startVictoryScreenActivity()
     {
         spScoreEditor.putInt("score", score);
+        spScoreEditor.putInt("lives", lives);
         spScoreEditor.commit();
         intent = new Intent(GameScreen.this, VictoryScreen.class);
         startActivity(intent);
