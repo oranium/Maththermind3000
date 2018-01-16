@@ -41,6 +41,7 @@ public class VictoryScreen extends AppCompatActivity {
     ImageView ivLife2;
     ImageView ivLife3;
     MusicManager musicManager;
+    Button btnShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class VictoryScreen extends AppCompatActivity {
         score = spScore.getInt("score", 0);
         lives = spScore.getInt("lives", 0);
 
+        btnShare = findViewById(R.id.btn_share);
         btnPlayAgain = findViewById(R.id.btn_playagain);
         btnBackToMainMenu = findViewById(R.id.btn_vicScreen_to_menu);
         btnToScoreBoard = findViewById(R.id.btn_vicScreen_to_scoreboard);
@@ -59,6 +61,18 @@ public class VictoryScreen extends AppCompatActivity {
         ivLife1 = findViewById(R.id.imageView_life);
         ivLife2 = findViewById(R.id.imageView_life5);
         ivLife3 = findViewById(R.id.imageView_life1);
+
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareText = "I scored "+score+" points in Maththermind! Come play with me, loser.";
+                sharingIntent.putExtra(Intent.EXTRA_TEXT,shareText);
+                startActivity(Intent.createChooser(sharingIntent, "Share via:"));
+
+            }
+        });
 
         btnPlayAgain.setOnClickListener(new View.OnClickListener() {
             @Override
