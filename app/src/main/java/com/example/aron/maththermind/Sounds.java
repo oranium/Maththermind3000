@@ -78,11 +78,13 @@ public class Sounds extends AppCompatActivity {
                 spEditor.putBoolean("music",false);
                 Toast.makeText(this,"Music off!",Toast.LENGTH_SHORT).show();
                 musicManager.pause();
+                musicOn = false;
             }
             else{
                 spEditor.putBoolean("music",true);
                 Toast.makeText(this,"Music on!",Toast.LENGTH_SHORT).show();
                 musicManager.start();
+                musicOn = true;
             }
             spEditor.apply();
         }
