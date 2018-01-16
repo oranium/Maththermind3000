@@ -61,6 +61,7 @@
             android:layout_alignBottom="@+id/txtView_music"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:saveEnabled="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:backgroundTint="@android:color/background_light"
@@ -102,12 +103,13 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ToggleButton
-            android:id="@+id/toggleButton_soundeffects"
+            android:id="@+id/toggleButton_sfx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:saveEnabled="true"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:backgroundTint="@android:color/background_light"

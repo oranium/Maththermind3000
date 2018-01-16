@@ -17,12 +17,29 @@ public class MainScreen extends AppCompatActivity {
     Button btn_start;
     Button btn_scoreboard;
     Button btn_options;
+    MusicManager musicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         initializeApp();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(musicManager!=null) {
+            musicManager.pause();
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(musicManager.mp!=null) {
+                musicManager.start(this);
+            }
     }
 
     private void initializeApp(){
@@ -52,16 +69,25 @@ public class MainScreen extends AppCompatActivity {
         });
         spLvl = getSharedPreferences("level", MODE_PRIVATE);
         spSound = getSharedPreferences("sound",MODE_PRIVATE);
+
         if(spSound.getBoolean("exists",false)==false){
             SharedPreferences.Editor soundEditor = spSound.edit();
             soundEditor.putBoolean("sfx", false);
             soundEditor.putBoolean("music",false);
             soundEditor.putBoolean("exists",true);
             soundEditor.apply();
-            //DEBUGGING ensues
-            Toast.makeText(
-                    this, "Edited preferences: sfx, music on!", Toast.LENGTH_LONG)
-                    .show();
+
+        }
+        if(spSound.getBoolean("music",false)){
+            if(musicManager==null){
+                musicManager = new MusicManager();
+            }
+            else{
+                if(!musicManager.mp.isPlaying()){
+                    musicManager.start(this);
+                }
+            }
+
         }
 
 

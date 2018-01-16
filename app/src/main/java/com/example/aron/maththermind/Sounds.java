@@ -19,6 +19,7 @@ public class Sounds extends AppCompatActivity {
         private SharedPreferences spSound;
         private SharedPreferences.Editor spEditor;
         private boolean sfxOn,musicOn;
+        MusicManager musicManager;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class Sounds extends AppCompatActivity {
         }
 
         private void initialize_sounds(){
+
             spSound = getSharedPreferences("sound", Context.MODE_PRIVATE);
             spEditor = spSound.edit();
             tbMusic =(ToggleButton) findViewById(R.id.toggleButton_music);
@@ -35,12 +37,8 @@ public class Sounds extends AppCompatActivity {
             sfxOn = spSound.getBoolean("sfx",false);
             musicOn = spSound.getBoolean("music",false);
 
-            if(musicOn){
-                tbMusic.setChecked(true);
-            }
-            if(sfxOn){
-                tbMusic.setChecked(true);
-            }
+            tbMusic.setChecked(musicOn);
+            tbSfx.setChecked(sfxOn);
 
             tbSfx.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,29 +54,34 @@ public class Sounds extends AppCompatActivity {
                 }
             });
         }
-        //use this on music toggle pressed
+
         private void toggle_music(){
+
             //if music on, turn off
             if(spSound.getBoolean("music",false)){
                 spEditor.putBoolean("music",false);
-                Toast.makeText(this,"Music off!",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Music off!",Toast.LENGTH_SHORT).show();
+                musicManager.release();
             }
             else{
+                musicManager = new MusicManager();
                 spEditor.putBoolean("music",true);
-                Toast.makeText(this,"Music on!",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Music on!",Toast.LENGTH_SHORT).show();
+                musicManager.start(this);
             }
             spEditor.apply();
         }
-        //use this on SFX button press
+
         private void toggle_sfx(){
+
             //if sfx on, turn off
             if(spSound.getBoolean("sfx",false)){
                 spEditor.putBoolean("sfx",false);
-                Toast.makeText(this,"SFX off!",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"SFX off!",Toast.LENGTH_SHORT).show();
             }
             else{
                 spEditor.putBoolean("sfx",true);
-                Toast.makeText(this,"SFX on!",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"SFX on!",Toast.LENGTH_SHORT).show();
             }
             spEditor.apply();
 
