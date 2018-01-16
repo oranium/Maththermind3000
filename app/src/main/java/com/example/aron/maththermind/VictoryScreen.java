@@ -36,6 +36,7 @@ public class VictoryScreen extends AppCompatActivity {
     Button btnBackToMainMenu;
     Button btnToScoreBoard;
     TextView tvScore;
+    TextView tvNewHighscore;
     ImageView ivLife1;
     ImageView ivLife2;
     ImageView ivLife3;
@@ -53,6 +54,7 @@ public class VictoryScreen extends AppCompatActivity {
         btnBackToMainMenu = findViewById(R.id.btn_vicScreen_to_menu);
         btnToScoreBoard = findViewById(R.id.btn_vicScreen_to_scoreboard);
         tvScore = findViewById(R.id.txtView_currentscore2);
+        tvNewHighscore = findViewById(R.id.txtView_newHighscore);
         ivLife1 = findViewById(R.id.imageView_life);
         ivLife2 = findViewById(R.id.imageView_life5);
         ivLife3 = findViewById(R.id.imageView_life1);
@@ -81,8 +83,14 @@ public class VictoryScreen extends AppCompatActivity {
         showLifes();
         showScore();
 
-        // TODO: check new highscore
-        startNewHighscoreActivity();
+        if (checkNewHighscore())
+        {
+            startNewHighscoreActivity();
+        }
+        else
+        {
+            tvNewHighscore.setVisibility(View.INVISIBLE);
+        }
 
 
     }
@@ -130,6 +138,21 @@ public class VictoryScreen extends AppCompatActivity {
         if (lives < 3) ivLife3.setVisibility(View.INVISIBLE);
         if (lives < 2) ivLife2.setVisibility(View.INVISIBLE);
         if (lives < 1) ivLife1.setVisibility(View.INVISIBLE);
+    }
+
+    private boolean checkNewHighscore()
+    {
+        try
+        {
+            SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard",MODE_PRIVATE,null);
+            Cursor cursor = scoreDB.rawQuery("SELECT  * FROM scores ORDER BY score DESC", null);
+            cursor.moveToPosition(9);
+            if (Integer.parseInt(cursor.getString(1)) >= score) return false;
+        }
+        catch (Exception e)
+        {}
+
+        return true;
     }
 
     /*
