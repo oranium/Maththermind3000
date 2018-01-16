@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.aron.maththermind.adapter.CustomListAdapter;
 import com.example.aron.maththermind.model.Items;
@@ -62,6 +63,11 @@ public class ScoreBoard extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }catch(SQLiteException e) {
             e.printStackTrace();
+        }
+
+        if (itemsList.isEmpty())
+        {
+            Toast.makeText(this,"No Highscores available yet. Time to play!",Toast.LENGTH_LONG).show();
         }
 
     }
