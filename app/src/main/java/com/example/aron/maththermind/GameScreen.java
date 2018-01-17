@@ -333,8 +333,6 @@ public class GameScreen extends AppCompatActivity {
         tvExercise.setText(newExercise);
     }
 
-
-
     public void generate_addition(){
         switch(addDif){
             case 1:
@@ -428,6 +426,13 @@ public class GameScreen extends AppCompatActivity {
         mpCorrect = null;
         mpWrong = null;
         finish(); //I HOPE THIS CLOSES THE ACTIVITY <-- yes, it does.
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        gameTimer.cancel();
+        finish();
     }
 
 }
