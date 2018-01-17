@@ -24,16 +24,11 @@ public class Sounds extends AppCompatActivity {
         @Override
         protected void onPause(){
             super.onPause();
-            if(MainScreen.musicThread.mp!=null && MainScreen.musicThread.mp.isPlaying()) {
-                MainScreen.musicThread.pausePlayer();
-            }
         }
         @Override
         protected void onResume(){
             super.onResume();
-            if(MainScreen.musicThread.mp!=null){
-                MainScreen.musicThread.resumePlayer();
-            }
+
 
         }
 
@@ -74,11 +69,13 @@ public class Sounds extends AppCompatActivity {
                 spEditor.putBoolean("music",false);
                 Toast.makeText(this,"Music off!",Toast.LENGTH_SHORT).show();
                 MainScreen.musicThread.stopPlayer();
+                MainScreen.musicOn = false;
             }
             else{
                 spEditor.putBoolean("music",true);
                 Toast.makeText(this,"Music on!",Toast.LENGTH_SHORT).show();
                 musicOn =(spSound.getBoolean("music",false));
+                MainScreen.musicOn = true;
                 MainScreen.musicThread.run();
             }
             spEditor.apply();

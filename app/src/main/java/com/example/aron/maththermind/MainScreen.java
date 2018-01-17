@@ -20,16 +20,10 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        if(musicThread.mp!=null && musicThread.mp.isPlaying()) {
-            musicThread.pausePlayer();
-        }
-    }
+    }   
     @Override
     protected void onResume(){
         super.onResume();
-        if(musicThread.mp!=null && !musicThread.mp.isPlaying()){
-            musicThread.resumePlayer();
-        }
 
     }
 
@@ -80,7 +74,6 @@ public class MainScreen extends AppCompatActivity {
             musicThread = new MusicThread(this);
             musicOn =(spSound.getBoolean("music",false));
             musicThread.start();
-            musicThread.run();
 
 
         if(spLvl.getInt("lvlAdd",-1)==-1){

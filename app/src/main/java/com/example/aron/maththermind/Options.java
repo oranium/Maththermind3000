@@ -15,20 +15,15 @@ import static com.example.aron.maththermind.MainScreen.musicThread;
 public class Options extends AppCompatActivity {
     Button btn_gameMode;
     Button btn_sounds;
+    Boolean musicOn;
 
     @Override
     protected void onPause(){
         super.onPause();
-        if(MainScreen.musicThread.mp!=null && MainScreen.musicThread.mp.isPlaying()) {
-           MainScreen.musicThread.pausePlayer();
-        }
     }
     @Override
     protected void onResume(){
         super.onResume();
-        if(MainScreen.musicThread.mp!=null){
-            MainScreen.musicThread.resumePlayer();
-        }
 
     }
     @Override

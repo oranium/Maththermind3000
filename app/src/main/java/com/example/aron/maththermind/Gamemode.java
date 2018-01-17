@@ -15,7 +15,6 @@ public class Gamemode extends AppCompatActivity {
     private SharedPreferences spLvl;
     private SharedPreferences.Editor lvlEditor;
 
-    MusicThread musicThread;
     SeekBar seekBarAddition;
     SeekBar seekBarSubtraction;
     SeekBar seekBarMultiplication;
@@ -24,17 +23,11 @@ public class Gamemode extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        if(musicThread.mp!=null && musicThread.mp.isPlaying()) {
-            musicThread.pausePlayer();
-        }
+
     }
     @Override
     protected void onResume(){
         super.onResume();
-        if(musicThread.mp!=null && !musicThread.mp.isPlaying()){
-            musicThread.resumePlayer();
-        }
-
     }
 
     @Override
@@ -53,7 +46,6 @@ public class Gamemode extends AppCompatActivity {
         seekBarSubtraction = findViewById(R.id.seekBar_subtraction);
         seekBarMultiplication = findViewById(R.id.seekBar_multiplication);
         seekBarDivision = findViewById(R.id.seekBar_division);
-        musicThread = MainScreen.musicThread;
         seekBarAddition.setProgress(spLvl.getInt("lvlAdd", 1));
         seekBarSubtraction.setProgress(spLvl.getInt("lvlSubt", 1));
         seekBarMultiplication.setProgress(spLvl.getInt("lvlMult", 1));

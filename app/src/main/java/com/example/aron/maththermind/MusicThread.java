@@ -7,7 +7,7 @@ import android.media.MediaPlayer;
  * Created by Aron on 17/01/2018.
  */
 
-public class MusicThread extends Thread {
+public class MusicThread extends Thread{
         Context context;
         MediaPlayer mp;
         int current;
@@ -16,6 +16,7 @@ public class MusicThread extends Thread {
             this.context = context;
         }
 
+        @Override
         public void run(){
             mp = MediaPlayer.create(context, R.raw.elevator_music);
             if (MainScreen.musicOn){

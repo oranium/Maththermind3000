@@ -48,16 +48,10 @@ public class GameScreen extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        if(musicThread.mp!=null && musicThread.mp.isPlaying()) {
-            musicThread.pausePlayer();
-        }
     }
     @Override
     protected void onResume(){
         super.onResume();
-        if(musicThread.mp!=null && !musicThread.mp.isPlaying()){
-            musicThread.resumePlayer();
-        }
 
     }
     @Override

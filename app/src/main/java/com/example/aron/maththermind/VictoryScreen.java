@@ -31,7 +31,6 @@ public class VictoryScreen extends AppCompatActivity {
     int score;
     int lives;
 
-    List<Items> itemsList;
     Button btnPlayAgain;
     Button btnBackToMainMenu;
     Button btnToScoreBoard;
@@ -46,16 +45,11 @@ public class VictoryScreen extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        if(musicThread.mp!=null && musicThread.mp.isPlaying()) {
-            musicThread.pausePlayer();
-        }
     }
     @Override
     protected void onResume(){
         super.onResume();
-        if(musicThread.mp!=null && !musicThread.mp.isPlaying()){
-            musicThread.resumePlayer();
-        }
+
 
     }
     @Override

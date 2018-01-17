@@ -32,20 +32,15 @@ public class ScoreBoard extends AppCompatActivity {
     private ListView listView;
     private CustomListAdapter adapter;
     MusicThread musicThread;
+    Boolean musicOn;
 
     @Override
     protected void onPause(){
         super.onPause();
-        if(musicThread.mp!=null && musicThread.mp.isPlaying()) {
-            musicThread.pausePlayer();
-        }
     }
     @Override
     protected void onResume(){
         super.onResume();
-        if(musicThread.mp!=null && !musicThread.mp.isPlaying()){
-            musicThread.resumePlayer();
-        }
 
     }
 
@@ -55,7 +50,6 @@ public class ScoreBoard extends AppCompatActivity {
         setContentView(R.layout.score_board);
         musicThread = MainScreen.musicThread;
         SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard", MODE_PRIVATE, null);
-        String[] columns = {"name", "score"};
         //initialize and create new adapter with layout list in score_board.xml
         itemsList = new ArrayList<>();
         listView = (ListView) findViewById(R.id.list);
