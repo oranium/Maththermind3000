@@ -39,7 +39,7 @@ public class Gamemode extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&Sounds.musicOn) {
+        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&MainScreen.musicOn) {
             musicManager.start();
         }
     }

@@ -51,7 +51,7 @@ public class Sounds extends AppCompatActivity {
             tbMusic =(ToggleButton) findViewById(R.id.toggleButton_music);
             tbSfx =(ToggleButton) findViewById(R.id.toggleButton_sfx);
             sfxOn = spSound.getBoolean("sfx",false);
-            musicOn = spSound.getBoolean("music",false);
+            musicOn = MainScreen.musicOn;
             this.musicManager = MainScreen.musicManager;
             tbMusic.setChecked(musicOn);
             tbSfx.setChecked(sfxOn);

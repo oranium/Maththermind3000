@@ -39,7 +39,7 @@ public class Options extends AppCompatActivity {
 
     private void initialize_options(){
         this.musicManager = MainScreen.musicManager;
-        if(Sounds.musicOn) {
+        if(MainScreen.musicOn) {
             musicManager.start();
         }
         btn_gameMode = findViewById(R.id.btn_gameMode);

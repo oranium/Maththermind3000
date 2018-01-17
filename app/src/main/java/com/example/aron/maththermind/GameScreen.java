@@ -98,7 +98,7 @@ public class GameScreen extends AppCompatActivity {
         multPoints = 40*multDif;
         divPoints = 60*divDif;
         sfxOn = spSound.getBoolean("sfx",false);
-        musicOn = spSound.getBoolean("music",false);
+        musicOn = MainScreen.musicOn;
         nextOp = new ArrayList<>();
 
         //note that 0:addition , 1:subtraction, 2:multiplication , 3: division

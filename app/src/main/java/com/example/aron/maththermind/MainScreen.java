@@ -18,6 +18,7 @@ public class MainScreen extends AppCompatActivity {
     Button btn_scoreboard;
     Button btn_options;
     static MusicManager musicManager;
+    static boolean musicOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class MainScreen extends AppCompatActivity {
             soundEditor.putBoolean("sfx", false);
             soundEditor.putBoolean("music",false);
             soundEditor.putBoolean("exists",true);
+            musicOn = false;
             soundEditor.apply();
 
         }
@@ -82,9 +84,11 @@ public class MainScreen extends AppCompatActivity {
                 musicManager = new MusicManager(this);
                 musicManager.start();
                 musicManager.pause();
+                musicOn = false;
             }
             if(spSound.getBoolean("music",false)&&!musicManager.mp.isPlaying()){
                 musicManager.start();
+                musicOn = true;
             }
 
 
