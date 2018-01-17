@@ -19,7 +19,22 @@ public class Sounds extends AppCompatActivity {
         private SharedPreferences spSound;
         private SharedPreferences.Editor spEditor;
         public static boolean sfxOn,musicOn;
-        static MusicManager musicManager;
+        MusicThread musicThread;
+
+        @Override
+        protected void onPause(){
+            super.onPause();
+            musicThread.pausePlayer();
+        }
+
+        @Override
+        protected void onResume(){
+            super.onResume();
+            if(musicThread!=null){
+                musicThread.resumePlayer();
+            }
+
+        }
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -28,31 +43,14 @@ public class Sounds extends AppCompatActivity {
             initialize_sounds();
         }
 
-    @Override
-    protected void onPause(){
-        super.onPause();
-        if(musicManager!=null) {
-            musicManager.pause();
-        }
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&musicOn) {
-            musicManager.start();
-        }
-    }
-
         private void initialize_sounds(){
-
+            musicThread = MainScreen.musicThread;
             spSound = getSharedPreferences("sound", Context.MODE_PRIVATE);
             spEditor = spSound.edit();
             tbMusic =(ToggleButton) findViewById(R.id.toggleButton_music);
             tbSfx =(ToggleButton) findViewById(R.id.toggleButton_sfx);
             sfxOn = spSound.getBoolean("sfx",false);
             musicOn = MainScreen.musicOn;
-            this.musicManager = MainScreen.musicManager;
             tbMusic.setChecked(musicOn);
             tbSfx.setChecked(sfxOn);
 
@@ -77,14 +75,14 @@ public class Sounds extends AppCompatActivity {
             if(spSound.getBoolean("music",false)){
                 spEditor.putBoolean("music",false);
                 Toast.makeText(this,"Music off!",Toast.LENGTH_SHORT).show();
-                musicManager.pause();
                 musicOn = false;
+                musicThread.stopPlayer();
             }
             else{
                 spEditor.putBoolean("music",true);
                 Toast.makeText(this,"Music on!",Toast.LENGTH_SHORT).show();
-                musicManager.start();
                 musicOn = true;
+                musicThread.run();
             }
             spEditor.apply();
         }

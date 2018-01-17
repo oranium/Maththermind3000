@@ -31,15 +31,28 @@ public class ScoreBoard extends AppCompatActivity {
     private List<Items> itemsList;
     private ListView listView;
     private CustomListAdapter adapter;
-    MusicManager musicManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onPause(){
+        super.onPause();
+        MainScreen.musicThread.pausePlayer();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(MainScreen.musicThread!=null){
+            MainScreen.musicThread.resumePlayer();
+        }
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_board);
-        this.musicManager = MainScreen.musicManager;
-        SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard",MODE_PRIVATE,null);
-        String[] columns = {"name","score"};
+        SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard", MODE_PRIVATE, null);
+        String[] columns = {"name", "score"};
         //initialize and create new adapter with layout list in score_board.xml
         itemsList = new ArrayList<>();
         listView = (ListView) findViewById(R.id.list);
@@ -61,31 +74,12 @@ public class ScoreBoard extends AppCompatActivity {
             }
             //to adapter: populate list with Array
             adapter.notifyDataSetChanged();
-        }catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             e.printStackTrace();
         }
 
-        if (itemsList.isEmpty())
-        {
-            Toast.makeText(this,"No Highscores available yet. Time to play!",Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-        if(musicManager!=null) {
-            musicManager.pause();
-        }
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&MainScreen.musicOn) {
-            musicManager.start();
+        if (itemsList.isEmpty()) {
+            Toast.makeText(this, "No Highscores available yet. Time to play!", Toast.LENGTH_LONG).show();
         }
     }
 }
-

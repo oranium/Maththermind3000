@@ -19,28 +19,28 @@ public class MainScreen extends AppCompatActivity {
     Button btn_options;
     static MusicManager musicManager;
     static boolean musicOn;
+    static MusicThread musicThread;
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        musicThread.pausePlayer();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(musicThread!=null){
+            musicThread.resumePlayer();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         initializeApp();
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-        if(musicManager!=null) {
-            musicManager.pause();
-        }
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&spSound.getBoolean("music",false)) {
-                musicManager.start();
-            }
     }
 
     private void initializeApp(){
@@ -80,14 +80,10 @@ public class MainScreen extends AppCompatActivity {
             soundEditor.apply();
 
         }
-            if(musicManager.mp==null){
-                musicManager = new MusicManager(this);
-                musicManager.start();
-                musicManager.pause();
-                musicOn = false;
-            }
-            if(spSound.getBoolean("music",false)&&!musicManager.mp.isPlaying()){
-                musicManager.start();
+            musicThread = new MusicThread(this);
+
+            if(spSound.getBoolean("music",false)){
+                musicThread.start();
                 musicOn = true;
             }
 

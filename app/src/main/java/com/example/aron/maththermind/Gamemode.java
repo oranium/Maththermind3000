@@ -19,7 +19,21 @@ public class Gamemode extends AppCompatActivity {
     SeekBar seekBarSubtraction;
     SeekBar seekBarMultiplication;
     SeekBar seekBarDivision;
-    MusicManager musicManager;
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        MainScreen.musicThread.pausePlayer();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(MainScreen.musicThread!=null){
+            MainScreen.musicThread.resumePlayer();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +42,11 @@ public class Gamemode extends AppCompatActivity {
         initialize_activity();
     }
 
-    @Override
-    protected void onPause(){
-        super.onPause();
-        if(musicManager!=null) {
-            musicManager.pause();
-        }
-    }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        if(musicManager.mp!=null&&!musicManager.mp.isPlaying()&&MainScreen.musicOn) {
-            musicManager.start();
-        }
-    }
 
     private void initialize_activity(){
         spLvl = getSharedPreferences("level", MODE_PRIVATE);
         lvlEditor = spLvl.edit();
-        this.musicManager = MainScreen.musicManager;
         seekBarAddition = findViewById(R.id.seekBar_addition);
         seekBarSubtraction = findViewById(R.id.seekBar_subtraction);
         seekBarMultiplication = findViewById(R.id.seekBar_multiplication);
