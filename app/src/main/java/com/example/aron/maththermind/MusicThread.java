@@ -17,7 +17,6 @@ public class MusicThread extends Thread {
         }
 
         public void run(){
-
             mp = MediaPlayer.create(context, R.raw.elevator_music);
             if (MainScreen.musicOn){
                 mp.start();
@@ -37,7 +36,7 @@ public class MusicThread extends Thread {
         }
 
         public void resumePlayer(){
-            if(mp!=null) {
+            if(mp!=null&&!mp.isPlaying()) {
                 mp.seekTo(current);
                 mp.start();
                 mp.setLooping(true);

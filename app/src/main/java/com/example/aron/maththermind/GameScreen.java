@@ -43,22 +43,23 @@ public class GameScreen extends AppCompatActivity {
     Timer gameTimer;
     Random rand;
     MediaPlayer mpWrong,mpCorrect,mpDead;
+    MusicThread musicThread;
 
     @Override
     protected void onPause(){
         super.onPause();
-        MainScreen.musicThread.pausePlayer();
+        if(musicThread.mp!=null && musicThread.mp.isPlaying()) {
+            musicThread.pausePlayer();
+        }
     }
-
     @Override
     protected void onResume(){
         super.onResume();
-        if(MainScreen.musicThread!=null){
-            MainScreen.musicThread.resumePlayer();
+        if(musicThread.mp!=null && !musicThread.mp.isPlaying()){
+            musicThread.resumePlayer();
         }
 
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +71,7 @@ public class GameScreen extends AppCompatActivity {
 
 
     public void initialize_activity(){
+        musicThread = MainScreen.musicThread;
         rand = new Random();
         mpWrong = MediaPlayer.create(this,R.raw.wrong_sfx);
         mpCorrect = MediaPlayer.create(this,R.raw.correct_sfx);

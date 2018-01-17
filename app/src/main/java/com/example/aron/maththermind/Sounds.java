@@ -18,20 +18,21 @@ public class Sounds extends AppCompatActivity {
         ToggleButton tbSfx,tbMusic;
         private SharedPreferences spSound;
         private SharedPreferences.Editor spEditor;
-        public static boolean sfxOn,musicOn;
-        MusicThread musicThread;
+        public static boolean sfxOn;
+        Boolean musicOn;
 
         @Override
         protected void onPause(){
             super.onPause();
-            musicThread.pausePlayer();
+            if(MainScreen.musicThread.mp!=null && MainScreen.musicThread.mp.isPlaying()) {
+                MainScreen.musicThread.pausePlayer();
+            }
         }
-
         @Override
         protected void onResume(){
             super.onResume();
-            if(musicThread!=null){
-                musicThread.resumePlayer();
+            if(MainScreen.musicThread.mp!=null){
+                MainScreen.musicThread.resumePlayer();
             }
 
         }
@@ -44,23 +45,20 @@ public class Sounds extends AppCompatActivity {
         }
 
         private void initialize_sounds(){
-            musicThread = MainScreen.musicThread;
             spSound = getSharedPreferences("sound", Context.MODE_PRIVATE);
             spEditor = spSound.edit();
             tbMusic =(ToggleButton) findViewById(R.id.toggleButton_music);
             tbSfx =(ToggleButton) findViewById(R.id.toggleButton_sfx);
             sfxOn = spSound.getBoolean("sfx",false);
-            musicOn = MainScreen.musicOn;
+            musicOn =(spSound.getBoolean("music",false));
             tbMusic.setChecked(musicOn);
             tbSfx.setChecked(sfxOn);
-
             tbSfx.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     toggle_sfx();
                 }
             });
-
             tbMusic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -75,16 +73,16 @@ public class Sounds extends AppCompatActivity {
             if(spSound.getBoolean("music",false)){
                 spEditor.putBoolean("music",false);
                 Toast.makeText(this,"Music off!",Toast.LENGTH_SHORT).show();
-                musicOn = false;
-                musicThread.stopPlayer();
+                MainScreen.musicThread.stopPlayer();
             }
             else{
                 spEditor.putBoolean("music",true);
                 Toast.makeText(this,"Music on!",Toast.LENGTH_SHORT).show();
-                musicOn = true;
-                musicThread.run();
+                musicOn =(spSound.getBoolean("music",false));
+                MainScreen.musicThread.run();
             }
             spEditor.apply();
+            musicOn =(spSound.getBoolean("music",false));
         }
 
         private void toggle_sfx(){

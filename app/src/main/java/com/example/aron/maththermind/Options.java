@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import static com.example.aron.maththermind.MainScreen.musicThread;
+
 /**
  * Created by breinhold on 20.12.17.
  */
@@ -17,18 +19,18 @@ public class Options extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        MainScreen.musicThread.pausePlayer();
+        if(MainScreen.musicThread.mp!=null && MainScreen.musicThread.mp.isPlaying()) {
+           MainScreen.musicThread.pausePlayer();
+        }
     }
-
     @Override
     protected void onResume(){
         super.onResume();
-        if(MainScreen.musicThread!=null){
+        if(MainScreen.musicThread.mp!=null){
             MainScreen.musicThread.resumePlayer();
         }
 
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +41,8 @@ public class Options extends AppCompatActivity {
 
 
     private void initialize_options(){
-
         btn_gameMode = findViewById(R.id.btn_gameMode);
         btn_sounds = findViewById(R.id.btn_sounds);
-
         btn_gameMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

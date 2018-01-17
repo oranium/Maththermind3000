@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import java.util.HashMap;
 
 public class MainScreen extends AppCompatActivity {
 
@@ -17,20 +14,20 @@ public class MainScreen extends AppCompatActivity {
     Button btn_start;
     Button btn_scoreboard;
     Button btn_options;
-    static MusicManager musicManager;
     static boolean musicOn;
     static MusicThread musicThread;
 
     @Override
     protected void onPause(){
         super.onPause();
-        musicThread.pausePlayer();
+        if(musicThread.mp!=null && musicThread.mp.isPlaying()) {
+            musicThread.pausePlayer();
+        }
     }
-
     @Override
     protected void onResume(){
         super.onResume();
-        if(musicThread!=null){
+        if(musicThread.mp!=null && !musicThread.mp.isPlaying()){
             musicThread.resumePlayer();
         }
 
@@ -81,12 +78,9 @@ public class MainScreen extends AppCompatActivity {
 
         }
             musicThread = new MusicThread(this);
-
-            if(spSound.getBoolean("music",false)){
-                musicThread.start();
-                musicOn = true;
-            }
-
+            musicOn =(spSound.getBoolean("music",false));
+            musicThread.start();
+            musicThread.run();
 
 
         if(spLvl.getInt("lvlAdd",-1)==-1){

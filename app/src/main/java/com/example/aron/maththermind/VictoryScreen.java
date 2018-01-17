@@ -41,22 +41,23 @@ public class VictoryScreen extends AppCompatActivity {
     ImageView ivLife2;
     ImageView ivLife3;
     Button btnShare;
+    MusicThread musicThread;
 
     @Override
     protected void onPause(){
         super.onPause();
-        MainScreen.musicThread.pausePlayer();
+        if(musicThread.mp!=null && musicThread.mp.isPlaying()) {
+            musicThread.pausePlayer();
+        }
     }
-
     @Override
     protected void onResume(){
         super.onResume();
-        if(MainScreen.musicThread!=null){
-            MainScreen.musicThread.resumePlayer();
+        if(musicThread.mp!=null && !musicThread.mp.isPlaying()){
+            musicThread.resumePlayer();
         }
 
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class VictoryScreen extends AppCompatActivity {
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
         score = spScore.getInt("score", 0);
         lives = spScore.getInt("lives", 0);
-
+        musicThread = MainScreen.musicThread;
         btnShare = findViewById(R.id.btn_share);
         btnPlayAgain = findViewById(R.id.btn_playagain);
         btnBackToMainMenu = findViewById(R.id.btn_vicScreen_to_menu);
