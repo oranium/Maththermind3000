@@ -12,10 +12,28 @@
 
 
     <TextView
+        android:id="@+id/rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="16dp"
+        android:textColor="#222222"/>
+
+    <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_marginLeft="50.0dp"
+        android:textSize="16dp"
+        android:textColor="#222222"/>
+
+    <TextView
+        android:id="@+id/solved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="250.0dp"
         android:textSize="16dp"
         android:textColor="#222222"/>
 
@@ -25,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="8dp"
-        android:textSize="14dp"
+        android:textSize="16dp"
         android:textColor="#222222"/>
 
 

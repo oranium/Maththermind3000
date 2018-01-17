@@ -29,7 +29,7 @@ public class GameScreen extends AppCompatActivity {
     EditText etInput;
     int minute,second;
     int op1,op2,res;
-    int score;
+    int score, solved;
     short lives;
     int addPoints,subtPoints,multPoints,divPoints;
     int addDif,subtDif,multDif,divDif;
@@ -81,6 +81,7 @@ public class GameScreen extends AppCompatActivity {
         second=60;
         lives=3;
         score = 0;
+        solved = 0;
         spLevel = getSharedPreferences("level",MODE_PRIVATE);
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
         spSound = getSharedPreferences("sound",MODE_PRIVATE);
@@ -201,6 +202,7 @@ public class GameScreen extends AppCompatActivity {
                     score += divPoints;
                     break;
             }
+            solved++;
             updateScore();
             if(sfxOn) {
                 if (mpCorrect.isPlaying()) {
@@ -414,6 +416,7 @@ public class GameScreen extends AppCompatActivity {
     {
         spScoreEditor.putInt("score", score);
         spScoreEditor.putInt("lives", lives);
+        spScoreEditor.putInt("solved", solved);
         spScoreEditor.commit();
         intent = new Intent(GameScreen.this, VictoryScreen.class);
         startActivity(intent);

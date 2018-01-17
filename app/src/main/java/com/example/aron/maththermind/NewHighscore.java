@@ -24,7 +24,7 @@ public class NewHighscore extends Dialog implements android.view.View.OnClickLis
     SharedPreferences spScore;
     SharedPreferences.Editor spScoreEditor;
 
-    int score;
+    int score, solved;
 
     public NewHighscore(Activity a)
     {
@@ -45,6 +45,7 @@ public class NewHighscore extends Dialog implements android.view.View.OnClickLis
         spScoreEditor = spScore.edit();
         etEnterName.setText(spScore.getString("EnteredName", ""));
         score = spScore.getInt("score", 0);
+        solved = spScore.getInt("solved", 0);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class NewHighscore extends Dialog implements android.view.View.OnClickLis
             scoreDB = getContext().openOrCreateDatabase("scoreboard", MODE_PRIVATE, null);
 
             //table: name - score
-            scoreDB.execSQL("CREATE TABLE IF NOT EXISTS scores (name TEXT, score INTEGER);");
+            scoreDB.execSQL("CREATE TABLE IF NOT EXISTS scores (name TEXT, score INTEGER, solved INTEGER);");
 
             //select all rows from table
             Cursor cursor = scoreDB.rawQuery("SELECT * FROM scores", null);
@@ -80,7 +81,7 @@ public class NewHighscore extends Dialog implements android.view.View.OnClickLis
             //if no rows: insert into table
             if (cursor != null) {
                 String name = spScore.getString("EnteredName","");
-                scoreDB.execSQL("INSERT INTO scores (name,score) VALUES ('"+name+"','"+score+"');");
+                scoreDB.execSQL("INSERT INTO scores (name,score,solved) VALUES ('"+name+"','"+score+"','"+solved+"');");
             }
         } catch (Exception e) {
         }

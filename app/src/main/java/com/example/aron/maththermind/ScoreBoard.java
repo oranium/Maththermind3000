@@ -57,14 +57,22 @@ public class ScoreBoard extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         try {
+            Items items = new Items();
+            items.setRank("Rank");
+            items.setName("Name");
+            items.setSolved("Exercises");
+            items.setScore("Score");
+            itemsList.add(items);
             Cursor cursor = scoreDB.rawQuery("SELECT  * FROM scores ORDER BY score DESC", null);
             cursor.moveToFirst();
             //read all rows from scoreDB and add to Array
             for (int i = 0; i < 10; i++) {
                 if (!cursor.isAfterLast()) {
-                    Items items = new Items();
+                    items = new Items();
+                    items.setRank(Integer.toString(i + 1));
                     items.setName(cursor.getString(0));
                     items.setScore(cursor.getString(1));
+                    items.setSolved(cursor.getString(2));
                     itemsList.add(items);
                     cursor.moveToNext();
                 }

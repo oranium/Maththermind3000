@@ -49,7 +49,9 @@ public class CustomListAdapter extends BaseAdapter {
 
             scoreView = inflater.inflate(R.layout.list_row, parent, false);
             holder = new ViewHolder();
+            holder.rank = (TextView) scoreView.findViewById(R.id.rank);
             holder.name = (TextView) scoreView.findViewById(R.id.name);
+            holder.solved = (TextView) scoreView.findViewById(R.id.solved);
             holder.score = (TextView) scoreView.findViewById(R.id.score);
 
             scoreView.setTag(holder);
@@ -59,7 +61,9 @@ public class CustomListAdapter extends BaseAdapter {
         }
 
         final Items m = itemsItems.get(position);
+        holder.rank.setText(m.getRank());
         holder.name.setText(m.getName());
+        holder.solved.setText(m.getSolved());
         holder.score.setText(m.getScore());
 
         return scoreView;
@@ -69,7 +73,8 @@ public class CustomListAdapter extends BaseAdapter {
 
         TextView name;
         TextView score;
-
+        TextView rank;
+        TextView solved;
     }
 
 }

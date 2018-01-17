@@ -28,7 +28,7 @@ import java.util.List;
 public class VictoryScreen extends AppCompatActivity {
 
     SharedPreferences spScore;
-    int score;
+    int score, solved;
     int lives;
 
     Button btnPlayAgain;
@@ -36,6 +36,7 @@ public class VictoryScreen extends AppCompatActivity {
     Button btnToScoreBoard;
     TextView tvScore;
     TextView tvNewHighscore;
+    TextView tvSolved;
     ImageView ivLife1;
     ImageView ivLife2;
     ImageView ivLife3;
@@ -58,6 +59,7 @@ public class VictoryScreen extends AppCompatActivity {
         setContentView(R.layout.victory_screen);
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
         score = spScore.getInt("score", 0);
+        solved = spScore.getInt("solved", 0);
         lives = spScore.getInt("lives", 0);
         musicThread = MainScreen.musicThread;
         btnShare = findViewById(R.id.btn_share);
@@ -65,6 +67,7 @@ public class VictoryScreen extends AppCompatActivity {
         btnBackToMainMenu = findViewById(R.id.btn_vicScreen_to_menu);
         btnToScoreBoard = findViewById(R.id.btn_vicScreen_to_scoreboard);
         tvScore = findViewById(R.id.txtView_currentscore2);
+        tvSolved = findViewById(R.id.txtView_solvedExercises);
         tvNewHighscore = findViewById(R.id.txtView_newHighscore);
         ivLife1 = findViewById(R.id.imageView_life);
         ivLife2 = findViewById(R.id.imageView_life5);
@@ -105,6 +108,7 @@ public class VictoryScreen extends AppCompatActivity {
 
         showLifes();
         showScore();
+        tvSolved.setText("You solved " + solved + " exercises.");
 
         if (checkNewHighscore())
         {
