@@ -21,41 +21,45 @@
             android:id="@+id/imageView_life3"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_alignTop="@+id/imageView_life1"
-            android:layout_toEndOf="@+id/editTextInput"
-            android:layout_toRightOf="@+id/editTextInput"
-            android:background="@android:color/holo_red_dark"
+            android:layout_alignTop="@+id/imageView_life2"
+            android:layout_marginLeft="22dp"
+            android:layout_marginStart="22dp"
+            android:layout_toEndOf="@+id/imageView_life2"
+            android:layout_toRightOf="@+id/imageView_life2"
+            android:background="@color/colorPrimaryDark"
             android:contentDescription="todo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:srcCompat="@mipmap/white_skull" />
 
         <ImageView
             android:id="@+id/imageView_life1"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignTop="@+id/imageView_life2"
-            android:layout_toLeftOf="@+id/editTextInput"
-            android:layout_toStartOf="@+id/editTextInput"
-            android:background="@android:color/holo_red_dark"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/imageView_life2"
+            android:layout_toStartOf="@+id/imageView_life2"
+            android:background="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:srcCompat="@mipmap/white_skull" />
 
         <ImageView
             android:id="@+id/imageView_life2"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_alignParentTop="true"
+            android:layout_above="@+id/txtView_exercise"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@android:dimen/app_icon_size"
-            android:background="@android:color/holo_red_dark"
+            android:layout_marginBottom="30dp"
+            android:background="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:srcCompat="@mipmap/white_skull" />
 
         <EditText
             android:id="@+id/editTextInput"
