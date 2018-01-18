@@ -29,7 +29,7 @@ public class GameScreen extends BaseActivity {
     EditText etInput;
     int minute,second;
     int op1,op2,res;
-    int score, solved;
+    int score, solved, solvedInARow, bonus;
     short lives;
     int addPoints,subtPoints,multPoints,divPoints;
     int addDif,subtDif,multDif,divDif;
@@ -82,6 +82,8 @@ public class GameScreen extends BaseActivity {
         lives=3;
         score = 0;
         solved = 0;
+        solvedInARow = 0;
+        bonus = 0;
         spLevel = getSharedPreferences("level",MODE_PRIVATE);
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
         spSound = getSharedPreferences("sound",MODE_PRIVATE);
@@ -90,10 +92,10 @@ public class GameScreen extends BaseActivity {
         subtDif=spLevel.getInt("lvlSubt",1);
         multDif=spLevel.getInt("lvlMult",1);
         divDif=spLevel.getInt("lvlDiv",1);
-        addPoints = 10*addDif;
-        subtPoints = 20*subtDif;
-        multPoints = 40*multDif;
-        divPoints = 60*divDif;
+        addPoints = pointsPerExercise(1, addDif);
+        subtPoints = pointsPerExercise(2, subtDif);
+        multPoints = pointsPerExercise(3, multDif);
+        divPoints = pointsPerExercise(4, divDif);
         sfxOn = spSound.getBoolean("sfx",false);
         musicOn = MainScreen.musicOn;
         nextOp = new ArrayList<>();
@@ -187,23 +189,27 @@ public class GameScreen extends BaseActivity {
         //add corresponding number of points to score if task is right
         if (userRes == res)
         {
+            solved++;
+            solvedInARow++;
+            getBonus();
+
             switch (curOp)
             {
                 case 0:
-                    score += addPoints;
+                    score += addPoints + (addPoints * bonus / 10);
                     break;
                 case 1:
-                    score += subtPoints;
+                    score += subtPoints + (subtPoints * bonus / 10);
                     break;
                 case 2:
-                    score += multPoints;
+                    score += multPoints + (multPoints * bonus / 10);
                     break;
                 case 3:
-                    score += divPoints;
+                    score += divPoints + (divPoints * bonus / 10);
                     break;
             }
-            solved++;
             updateScore();
+
             if(sfxOn) {
                 if (mpCorrect.isPlaying()) {
                     mpCorrect.stop();
@@ -229,6 +235,9 @@ public class GameScreen extends BaseActivity {
         }
         else {
             lives--;
+            solvedInARow = 0;
+            bonus = 0;
+
             switch (lives) {
                 case 2:
                     ivLife3.setVisibility(View.INVISIBLE);
@@ -433,6 +442,113 @@ public class GameScreen extends BaseActivity {
                 op2 = rand.nextInt(10) + 21;
                 op1 = res * op2;
                 break;
+        }
+    }
+
+    private int pointsPerExercise(int operation, int level)
+    {
+        int points = 0;
+
+        switch (operation)
+        {
+            case 1:
+                switch (level)
+                {
+                    case 1:
+                        points = 10;
+                        break;
+                    case 2:
+                        points = 21;
+                        break;
+                    case 3:
+                        points = 64;
+                        break;
+                }
+                break;
+
+            case 2:
+                switch (level)
+                {
+                    case 1:
+                        points = 14;
+                        break;
+                    case 2:
+                        points = 31;
+                        break;
+                    case 3:
+                        points = 118;
+                        break;
+                }
+                break;
+
+            case 3:
+                switch (level)
+                {
+                    case 1:
+                        points = 15;
+                        break;
+                    case 2:
+                        points = 79;
+                        break;
+                    case 3:
+                        points = 155;
+                        break;
+                }
+                break;
+
+            case 4:
+                switch (level)
+                {
+                    case 1:
+                        points = 18;
+                        break;
+                    case 2:
+                        points = 65;
+                        break;
+                    case 3:
+                        points = 225;
+                        break;
+                }
+                break;
+        }
+
+        return points;
+    }
+
+    private void getBonus()
+    {
+        // bonus = 1 means 10 %
+        if (solvedInARow >= 40)
+        {
+            bonus = 20;
+        }
+        else if (solvedInARow >= 30)
+        {
+            bonus = 15;
+        }
+        else if (solvedInARow >= 20)
+        {
+            bonus = 10;
+        }
+        else if (solvedInARow >= 15)
+        {
+            bonus = 7;
+        }
+        else if (solvedInARow >= 10)
+        {
+            bonus = 5;
+        }
+        else if (solvedInARow >= 7)
+        {
+            bonus = 3;
+        }
+        else if (solvedInARow >= 5)
+        {
+            bonus = 2;
+        }
+        else if (solvedInARow >= 3)
+        {
+            bonus = 1;
         }
     }
 
