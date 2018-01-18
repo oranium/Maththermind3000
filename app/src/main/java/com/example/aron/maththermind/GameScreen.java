@@ -23,7 +23,7 @@ import java.util.Random;
  * Created by breinhold on 20.12.17.
  */
 
-public class GameScreen extends AppCompatActivity {
+public class GameScreen extends BaseActivity {
     TextView tvCurrentTime,tvCurrentScore,tvExercise;
     ImageView ivLife1,ivLife2,ivLife3;
     EditText etInput;
@@ -55,7 +55,7 @@ public class GameScreen extends AppCompatActivity {
 
     }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_screen);
         initialize_activity();

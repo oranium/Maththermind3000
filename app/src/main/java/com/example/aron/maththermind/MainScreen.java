@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainScreen extends AppCompatActivity {
+public class MainScreen extends BaseActivity {
 
     private SharedPreferences spLvl,spSound;
     Button btn_start;
@@ -20,15 +20,15 @@ public class MainScreen extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-    }   
-    @Override
-    protected void onResume(){
-        super.onResume();
-
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onResume(){
+        super.onResume();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         initializeApp();
@@ -60,6 +60,7 @@ public class MainScreen extends AppCompatActivity {
             }
         });
         spLvl = getSharedPreferences("level", MODE_PRIVATE);
+
         spSound = getSharedPreferences("sound",MODE_PRIVATE);
 
         if(spSound.getBoolean("exists",false)==false){

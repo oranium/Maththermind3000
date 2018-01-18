@@ -14,7 +14,7 @@ import com.example.aron.maththermind.R;
  * Created by Aron on 25/12/2017.
  */
 
-public class Sounds extends AppCompatActivity {
+public class Sounds extends BaseActivity {
         ToggleButton tbSfx,tbMusic;
         private SharedPreferences spSound;
         private SharedPreferences.Editor spEditor;
@@ -33,7 +33,7 @@ public class Sounds extends AppCompatActivity {
         }
 
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
+        public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.popup_sounds);
             initialize_sounds();

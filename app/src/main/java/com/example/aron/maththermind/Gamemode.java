@@ -10,7 +10,7 @@ import android.widget.Toast;
  * Created by Aron on 25/12/2017.
  */
 
-public class Gamemode extends AppCompatActivity {
+public class Gamemode extends BaseActivity {
 
     private SharedPreferences spLvl;
     private SharedPreferences.Editor lvlEditor;
@@ -31,7 +31,7 @@ public class Gamemode extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_gamemode);
         initialize_activity();

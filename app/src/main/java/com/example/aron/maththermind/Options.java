@@ -12,7 +12,7 @@ import static com.example.aron.maththermind.MainScreen.musicThread;
  * Created by breinhold on 20.12.17.
  */
 
-public class Options extends AppCompatActivity {
+public class Options extends BaseActivity {
     Button btn_gameMode;
     Button btn_sounds;
     Boolean musicOn;
@@ -27,7 +27,7 @@ public class Options extends AppCompatActivity {
 
     }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.options);
         initialize_options();
