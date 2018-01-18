@@ -339,12 +339,12 @@ public class GameScreen extends AppCompatActivity {
                 op2 = res - op1;
                 break;
             case 2:
-                res = rand.nextInt(101);
+                res = rand.nextInt(81) + 20;
                 op1 = rand.nextInt(res + 1);
                 op2 = res - op1;
                 break;
             case 3:
-                res = rand.nextInt(1001);
+                res = rand.nextInt(901) + 100;
                 op1 = rand.nextInt(res + 1);
                 op2 = res - op1;
                 break;
@@ -359,12 +359,12 @@ public class GameScreen extends AppCompatActivity {
                 res = op1 - op2;
                 break;
             case 2:
-                op1 = rand.nextInt(101);
+                op1 = rand.nextInt(81) + 20;
                 op2 = rand.nextInt(op1 + 1);
                 res = op1 - op2;
                 break;
             case 3:
-                op1 = rand.nextInt(1001);
+                op1 = rand.nextInt(901) + 100;
                 op2 = rand.nextInt(op1 + 1);
                 res = op1 - op2;
                 break;
@@ -381,11 +381,35 @@ public class GameScreen extends AppCompatActivity {
             case 2:
                 op1 = rand.nextInt(21);
                 op2 = rand.nextInt(21);
+                if (op1 < 10 && op2 < 10)
+                {
+                    switch (rand.nextInt(2))
+                    {
+                        case 0:
+                            op1 = rand.nextInt(11) + 10;
+                            break;
+                        case 1:
+                            op2 = rand.nextInt(11) + 10;
+                            break;
+                    }
+                }
                 res = op1 * op2;
                 break;
             case 3:
                 op1 = rand.nextInt(31);
                 op2 = rand.nextInt(31);
+                if (op1 < 20 && op2 < 20)
+                {
+                    switch (rand.nextInt(2))
+                    {
+                        case 0:
+                            op1 = rand.nextInt(11) + 20;
+                            break;
+                        case 1:
+                            op2 = rand.nextInt(11) + 20;
+                            break;
+                    }
+                }
                 res = op1 * op2;
                 break;
         }
@@ -401,12 +425,12 @@ public class GameScreen extends AppCompatActivity {
                 break;
             case 2:
                 res = rand.nextInt(21);
-                op2 = rand.nextInt(20) + 1;
+                op2 = rand.nextInt(10) + 11;
                 op1 = res * op2;
                 break;
             case 3:
                 res = rand.nextInt(31);
-                op2 = rand.nextInt(30) + 1;
+                op2 = rand.nextInt(10) + 21;
                 op1 = res * op2;
                 break;
         }
