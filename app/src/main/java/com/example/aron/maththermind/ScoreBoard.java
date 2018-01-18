@@ -27,7 +27,7 @@ import java.util.List;
  * Created by breinhold on 20.12.17.
  */
 
-public class ScoreBoard extends AppCompatActivity {
+public class ScoreBoard extends BaseActivity {
     private List<Items> itemsList;
     private ListView listView;
     private CustomListAdapter adapter;
@@ -45,7 +45,7 @@ public class ScoreBoard extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_board);
         musicThread = MainScreen.musicThread;

@@ -25,7 +25,7 @@ import java.util.List;
  * Created by breinhold on 20.12.17.
  */
 
-public class VictoryScreen extends AppCompatActivity {
+public class VictoryScreen extends BaseActivity {
 
     SharedPreferences spScore;
     int score, solved;
@@ -54,7 +54,7 @@ public class VictoryScreen extends AppCompatActivity {
 
     }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.victory_screen);
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
