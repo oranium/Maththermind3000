@@ -43,10 +43,10 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public void onAppStart() {
-        MainScreen.musicThread.resumePlayer();
+        if (MainScreen.musicOn) MainScreen.musicThread.resumePlayer();
     }
 
     public void onAppPause() {
-        MainScreen.musicThread.pausePlayer();
+        if (MainScreen.musicOn) MainScreen.musicThread.pausePlayer();
     }
 }
