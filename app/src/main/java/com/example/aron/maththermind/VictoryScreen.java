@@ -174,7 +174,7 @@ public class VictoryScreen extends BaseActivity {
         {
             SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard",MODE_PRIVATE,null);
             Cursor cursor = scoreDB.rawQuery("SELECT  * FROM scores ORDER BY score DESC", null);
-            cursor.moveToPosition(9);
+            cursor.moveToPosition(24);
             if (Integer.parseInt(cursor.getString(1)) >= score) return false;
         }
         catch (Exception e)

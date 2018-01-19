@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,7 +34,8 @@ public class ScoreBoard extends BaseActivity {
     private ListView listView;
     private CustomListAdapter adapter;
     MusicThread musicThread;
-    Boolean musicOn;
+
+    Button btnBack;
 
     @Override
     protected void onPause(){
@@ -55,6 +58,7 @@ public class ScoreBoard extends BaseActivity {
         listView = (ListView) findViewById(R.id.list);
         adapter = new CustomListAdapter(this, itemsList);
         listView.setAdapter(adapter);
+        btnBack = findViewById(R.id.btn_back4);
 
         try {
             Items items = new Items();
@@ -66,7 +70,7 @@ public class ScoreBoard extends BaseActivity {
             Cursor cursor = scoreDB.rawQuery("SELECT  * FROM scores ORDER BY score DESC", null);
             cursor.moveToFirst();
             //read all rows from scoreDB and add to Array
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 25; i++) {
                 if (!cursor.isAfterLast()) {
                     items = new Items();
                     items.setRank(Integer.toString(i + 1));
@@ -86,5 +90,12 @@ public class ScoreBoard extends BaseActivity {
         if (itemsList.isEmpty()) {
             Toast.makeText(this, "No Highscores available yet. Time to play!", Toast.LENGTH_LONG).show();
         }
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }
