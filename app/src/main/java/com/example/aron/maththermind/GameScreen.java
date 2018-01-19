@@ -458,10 +458,10 @@ public class GameScreen extends BaseActivity {
                         points = 10;
                         break;
                     case 2:
-                        points = 23;
+                        points = 24;
                         break;
                     case 3:
-                        points = 61;
+                        points = 63;
                         break;
                 }
                 break;
@@ -470,13 +470,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 11;
+                        points = 12;
                         break;
                     case 2:
-                        points = 27;
+                        points = 28;
                         break;
                     case 3:
-                        points = 85;
+                        points = 89;
                         break;
                 }
                 break;
@@ -488,10 +488,10 @@ public class GameScreen extends BaseActivity {
                         points = 14;
                         break;
                     case 2:
-                        points = 61;
+                        points = 63;
                         break;
                     case 3:
-                        points = 122;
+                        points = 126;
                         break;
                 }
                 break;
@@ -500,13 +500,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 14;
+                        points = 15;
                         break;
                     case 2:
-                        points = 58;
+                        points = 60;
                         break;
                     case 3:
-                        points = 154;
+                        points = 159;
                         break;
                 }
                 break;
@@ -518,19 +518,31 @@ public class GameScreen extends BaseActivity {
     private void getBonus()
     {
         // bonus = 1 means 10 %
-        if (solvedInARow >= 40)
+        if (solvedInARow >= 50)
+        {
+            bonus = 40;
+        }
+        else if (solvedInARow >= 40)
+        {
+            bonus = 25;
+        }
+        else if (solvedInARow >= 30)
         {
             bonus = 20;
         }
-        else if (solvedInARow >= 30)
+        else if (solvedInARow >= 25)
         {
             bonus = 15;
         }
         else if (solvedInARow >= 20)
         {
-            bonus = 10;
+            bonus = 12;
         }
-        else if (solvedInARow >= 15)
+        else if (solvedInARow >= 16)
+        {
+            bonus = 9;
+        }
+        else if (solvedInARow >= 13)
         {
             bonus = 7;
         }
