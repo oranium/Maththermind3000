@@ -32,8 +32,8 @@
         android:id="@+id/solved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="250.0dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="100.0dp"
         android:textSize="16dp"
         android:textColor="#222222"/>
 
