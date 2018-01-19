@@ -24,7 +24,7 @@ import java.util.Random;
  */
 
 public class GameScreen extends BaseActivity {
-    TextView tvCurrentTime,tvCurrentScore,tvExercise;
+    TextView tvCurrentTime,tvCurrentScore,tvExercise, tvSolvedInARow;
     ImageView ivLife1,ivLife2,ivLife3;
     EditText etInput;
     int minute,second;
@@ -73,6 +73,8 @@ public class GameScreen extends BaseActivity {
         tvCurrentTime =(findViewById(R.id.txtView_currenttime));
         tvCurrentScore=(findViewById((R.id.txtView_currentscore)));
         tvExercise=(findViewById(R.id.txtView_exercise));
+        tvSolvedInARow = findViewById(R.id.txtView_solved_in_a_row);
+        tvSolvedInARow.setVisibility(View.INVISIBLE);
         ivLife1=findViewById(R.id.imageView_life1);
         ivLife2=findViewById(R.id.imageView_life2);
         ivLife3=findViewById(R.id.imageView_life3);
@@ -274,6 +276,7 @@ public class GameScreen extends BaseActivity {
                 }
             }
         }
+        updateInARow();
 
         if (lives == 0)
         {
@@ -561,6 +564,19 @@ public class GameScreen extends BaseActivity {
         else if (solvedInARow >= 3)
         {
             bonus = 1;
+        }
+    }
+
+    private void updateInARow()
+    {
+        if (solvedInARow > 1)
+        {
+            tvSolvedInARow.setVisibility(View.VISIBLE);
+            tvSolvedInARow.setText(solvedInARow + " in a row");
+        }
+        else
+        {
+            tvSolvedInARow.setVisibility(View.INVISIBLE);
         }
     }
 
