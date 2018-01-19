@@ -458,10 +458,10 @@ public class GameScreen extends BaseActivity {
                         points = 10;
                         break;
                     case 2:
-                        points = 21;
+                        points = 23;
                         break;
                     case 3:
-                        points = 64;
+                        points = 61;
                         break;
                 }
                 break;
@@ -470,13 +470,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 14;
+                        points = 11;
                         break;
                     case 2:
-                        points = 31;
+                        points = 27;
                         break;
                     case 3:
-                        points = 118;
+                        points = 85;
                         break;
                 }
                 break;
@@ -485,13 +485,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 15;
+                        points = 14;
                         break;
                     case 2:
-                        points = 79;
+                        points = 61;
                         break;
                     case 3:
-                        points = 155;
+                        points = 122;
                         break;
                 }
                 break;
@@ -500,13 +500,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 18;
+                        points = 14;
                         break;
                     case 2:
-                        points = 65;
+                        points = 58;
                         break;
                     case 3:
-                        points = 225;
+                        points = 154;
                         break;
                 }
                 break;
