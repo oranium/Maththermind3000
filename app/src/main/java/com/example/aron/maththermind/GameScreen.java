@@ -24,7 +24,7 @@ import java.util.Random;
  */
 
 public class GameScreen extends BaseActivity {
-    TextView tvCurrentTime,tvCurrentScore,tvExercise;
+    TextView tvCurrentTime,tvCurrentScore,tvExercise, tvSolvedInARow;
     ImageView ivLife1,ivLife2,ivLife3;
     EditText etInput;
     int minute,second;
@@ -73,6 +73,8 @@ public class GameScreen extends BaseActivity {
         tvCurrentTime =(findViewById(R.id.txtView_currenttime));
         tvCurrentScore=(findViewById((R.id.txtView_currentscore)));
         tvExercise=(findViewById(R.id.txtView_exercise));
+        tvSolvedInARow = findViewById(R.id.txtView_solved_in_a_row);
+        tvSolvedInARow.setVisibility(View.INVISIBLE);
         ivLife1=findViewById(R.id.imageView_life1);
         ivLife2=findViewById(R.id.imageView_life2);
         ivLife3=findViewById(R.id.imageView_life3);
@@ -274,6 +276,7 @@ public class GameScreen extends BaseActivity {
                 }
             }
         }
+        updateInARow();
 
         if (lives == 0)
         {
@@ -458,10 +461,10 @@ public class GameScreen extends BaseActivity {
                         points = 10;
                         break;
                     case 2:
-                        points = 21;
+                        points = 24;
                         break;
                     case 3:
-                        points = 64;
+                        points = 63;
                         break;
                 }
                 break;
@@ -470,13 +473,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 14;
+                        points = 12;
                         break;
                     case 2:
-                        points = 31;
+                        points = 28;
                         break;
                     case 3:
-                        points = 118;
+                        points = 89;
                         break;
                 }
                 break;
@@ -485,13 +488,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 15;
+                        points = 14;
                         break;
                     case 2:
-                        points = 79;
+                        points = 63;
                         break;
                     case 3:
-                        points = 155;
+                        points = 126;
                         break;
                 }
                 break;
@@ -500,13 +503,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 18;
+                        points = 15;
                         break;
                     case 2:
-                        points = 65;
+                        points = 60;
                         break;
                     case 3:
-                        points = 225;
+                        points = 159;
                         break;
                 }
                 break;
@@ -518,19 +521,31 @@ public class GameScreen extends BaseActivity {
     private void getBonus()
     {
         // bonus = 1 means 10 %
-        if (solvedInARow >= 40)
+        if (solvedInARow >= 50)
+        {
+            bonus = 40;
+        }
+        else if (solvedInARow >= 40)
+        {
+            bonus = 25;
+        }
+        else if (solvedInARow >= 30)
         {
             bonus = 20;
         }
-        else if (solvedInARow >= 30)
+        else if (solvedInARow >= 25)
         {
             bonus = 15;
         }
         else if (solvedInARow >= 20)
         {
-            bonus = 10;
+            bonus = 12;
         }
-        else if (solvedInARow >= 15)
+        else if (solvedInARow >= 16)
+        {
+            bonus = 9;
+        }
+        else if (solvedInARow >= 13)
         {
             bonus = 7;
         }
@@ -549,6 +564,19 @@ public class GameScreen extends BaseActivity {
         else if (solvedInARow >= 3)
         {
             bonus = 1;
+        }
+    }
+
+    private void updateInARow()
+    {
+        if (solvedInARow > 1)
+        {
+            tvSolvedInARow.setVisibility(View.VISIBLE);
+            tvSolvedInARow.setText(solvedInARow + " in a row");
+        }
+        else
+        {
+            tvSolvedInARow.setVisibility(View.INVISIBLE);
         }
     }
 
