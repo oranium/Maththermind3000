@@ -15,6 +15,7 @@ import static com.example.aron.maththermind.MainScreen.musicThread;
 public class Options extends BaseActivity {
     Button btn_gameMode;
     Button btn_sounds;
+    Button btn_back;
     Boolean musicOn;
 
     @Override
@@ -33,11 +34,11 @@ public class Options extends BaseActivity {
         initialize_options();
     }
 
-
-
     private void initialize_options(){
         btn_gameMode = findViewById(R.id.btn_gameMode);
         btn_sounds = findViewById(R.id.btn_sounds);
+        btn_back = findViewById(R.id.btn_back5);
+
         btn_gameMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +50,13 @@ public class Options extends BaseActivity {
             @Override
             public void onClick(View view) {
                 startSoundsActivity();
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,9 +28,10 @@ import java.util.List;
 
 public class VictoryScreen extends BaseActivity {
 
-    SharedPreferences spScore;
+    SharedPreferences spScore, spSound;
     int score, solved;
     int lives;
+    boolean sfxOn;
 
     Button btnPlayAgain;
     Button btnBackToMainMenu;
@@ -42,6 +44,7 @@ public class VictoryScreen extends BaseActivity {
     ImageView ivLife3;
     Button btnShare;
     MusicThread musicThread;
+    MediaPlayer mpApplause;
 
     @Override
     protected void onPause(){
@@ -58,6 +61,7 @@ public class VictoryScreen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.victory_screen);
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
+        spSound = getSharedPreferences("sound",MODE_PRIVATE);
         score = spScore.getInt("score", 0);
         solved = spScore.getInt("solved", 0);
         lives = spScore.getInt("lives", 0);
@@ -72,6 +76,8 @@ public class VictoryScreen extends BaseActivity {
         ivLife1 = findViewById(R.id.imageView_life);
         ivLife2 = findViewById(R.id.imageView_life5);
         ivLife3 = findViewById(R.id.imageView_life1);
+        sfxOn = spSound.getBoolean("sfx",false);
+        mpApplause = MediaPlayer.create(this, R.raw.applause);
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +119,10 @@ public class VictoryScreen extends BaseActivity {
         if (checkNewHighscore())
         {
             startNewHighscoreActivity();
+            if (lives != 0)
+            {
+                mpApplause.start();
+            }
         }
         else
         {
