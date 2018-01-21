@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -16,6 +17,7 @@ import com.example.aron.maththermind.R;
 
 public class Sounds extends BaseActivity {
         ToggleButton tbSfx,tbMusic;
+        Button btnBack;
         private SharedPreferences spSound;
         private SharedPreferences.Editor spEditor;
         public static boolean sfxOn;
@@ -36,6 +38,15 @@ public class Sounds extends BaseActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.popup_sounds);
+
+            btnBack = findViewById(R.id.btn_back2);
+            btnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+
             initialize_sounds();
         }
 
@@ -60,6 +71,7 @@ public class Sounds extends BaseActivity {
                     toggle_music();
                 }
             });
+
         }
 
         private void toggle_music(){

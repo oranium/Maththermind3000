@@ -3,6 +3,8 @@ package com.example.aron.maththermind;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ public class Gamemode extends BaseActivity {
     SeekBar seekBarSubtraction;
     SeekBar seekBarMultiplication;
     SeekBar seekBarDivision;
+    Button btnBack;
 
     @Override
     protected void onPause(){
@@ -50,6 +53,14 @@ public class Gamemode extends BaseActivity {
         seekBarSubtraction.setProgress(spLvl.getInt("lvlSubt", 1));
         seekBarMultiplication.setProgress(spLvl.getInt("lvlMult", 1));
         seekBarDivision.setProgress(spLvl.getInt("lvlDiv", 1));
+        btnBack = findViewById(R.id.btn_back1);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         seekBarAddition.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
