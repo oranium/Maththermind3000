@@ -1,6 +1,5 @@
 package com.example.aron.maththermind;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -9,30 +8,20 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import com.example.aron.maththermind.adapter.CustomListAdapter;
-import com.example.aron.maththermind.model.Items;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by breinhold on 20.12.17.
  */
 
 public class VictoryScreen extends BaseActivity {
-
     SharedPreferences spScore, spSound;
     int score, solved;
     int lives;
     boolean sfxOn;
-
     Button btnPlayAgain;
     Button btnBackToMainMenu;
     Button btnToScoreBoard;
@@ -47,19 +36,10 @@ public class VictoryScreen extends BaseActivity {
     MediaPlayer mpApplause;
 
     @Override
-    protected void onPause(){
-        super.onPause();
-    }
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-
-    }
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.victory_screen);
+
         spScore = getSharedPreferences("currentScore", MODE_PRIVATE);
         spSound = getSharedPreferences("sound",MODE_PRIVATE);
         score = spScore.getInt("score", 0);
@@ -87,7 +67,6 @@ public class VictoryScreen extends BaseActivity {
                 String shareText = "I scored "+score+" points in Maththermind! Come play with me, loser.";
                 sharingIntent.putExtra(Intent.EXTRA_TEXT,shareText);
                 startActivity(Intent.createChooser(sharingIntent, "Share via:"));
-
             }
         });
 
@@ -111,21 +90,17 @@ public class VictoryScreen extends BaseActivity {
                 startScoreBoardActivity();
             }
         });
-
-        showLifes();
+        showLives();
         showScore();
         tvSolved.setText("You solved " + solved + " exercises.");
 
-        if (checkNewHighscore())
-        {
+        if (checkNewHighscore()) {
             startNewHighscoreActivity();
-            if (lives != 0)
-            {
+            if (lives != 0) {
                 mpApplause.start();
             }
         }
-        else
-        {
+        else {
             tvNewHighscore.setVisibility(View.INVISIBLE);
         }
 
@@ -171,50 +146,30 @@ public class VictoryScreen extends BaseActivity {
         tvScore.setText(newScore);
     }
 
-    private void showLifes()
-    {
-        if (lives < 3) ivLife3.setVisibility(View.INVISIBLE);
-        if (lives < 2) ivLife2.setVisibility(View.INVISIBLE);
-        if (lives < 1) ivLife1.setVisibility(View.INVISIBLE);
+    private void showLives() {
+        if (lives < 3){
+            ivLife3.setVisibility(View.INVISIBLE);
+        }
+        if (lives < 2){
+            ivLife2.setVisibility(View.INVISIBLE);
+        }
+        if (lives < 1){
+            ivLife1.setVisibility(View.INVISIBLE);
+        }
     }
 
-    private boolean checkNewHighscore()
-    {
-        try
-        {
+    private boolean checkNewHighscore() {
+        try {
             SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard",MODE_PRIVATE,null);
             Cursor cursor = scoreDB.rawQuery("SELECT  * FROM scores ORDER BY score DESC", null);
             cursor.moveToPosition(24);
-            if (Integer.parseInt(cursor.getString(1)) >= score) return false;
+            if (Integer.parseInt(cursor.getString(1)) >= score){
+                return false;
+            }
         }
-        catch (Exception e)
-        {}
-
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return true;
     }
-
-    /*
-    private void addToScoreboard() {
-        SQLiteDatabase scoreDB;
-
-        try {
-            //create or access score database
-            scoreDB = this.openOrCreateDatabase("scoreboard", MODE_PRIVATE, null);
-
-            //table: name - score
-            scoreDB.execSQL("CREATE TABLE IF NOT EXISTS scores (name TEXT, score INTEGER);");
-
-            //select all rows from table
-            Cursor cursor = scoreDB.rawQuery("SELECT * FROM scores", null);
-
-            //if no rows: insert into table
-            if (cursor != null) {
-                    String name = getSharedPreferences("currentScore",MODE_PRIVATE).getString("EnteredName","");
-                    scoreDB.execSQL("INSERT INTO scores (name,score) VALUES ('"+name+"','"+score+"');");
-            }
-        } catch (Exception e) {
-        }
-
-    }
-    */
 }
