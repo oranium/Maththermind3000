@@ -3,13 +3,10 @@ package com.example.aron.maththermind;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import com.example.aron.maththermind.R;
 
 /**
  * Created by Aron on 25/12/2017.
@@ -24,33 +21,11 @@ public class Sounds extends BaseActivity {
         Boolean musicOn;
 
         @Override
-        protected void onPause(){
-            super.onPause();
-        }
-        @Override
-        protected void onResume(){
-            super.onResume();
-
-
-        }
-
-        @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.popup_sounds);
 
             btnBack = findViewById(R.id.btn_back2);
-            btnBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
-
-            initialize_sounds();
-        }
-
-        private void initialize_sounds(){
             spSound = getSharedPreferences("sound", Context.MODE_PRIVATE);
             spEditor = spSound.edit();
             tbMusic =(ToggleButton) findViewById(R.id.toggleButton_music);
@@ -71,11 +46,16 @@ public class Sounds extends BaseActivity {
                     toggle_music();
                 }
             });
+            btnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
 
         }
 
         private void toggle_music(){
-
             //if music on, turn off
             if(spSound.getBoolean("music",false)){
                 spEditor.putBoolean("music",false);
@@ -95,7 +75,6 @@ public class Sounds extends BaseActivity {
         }
 
         private void toggle_sfx(){
-
             //if sfx on, turn off
             if(spSound.getBoolean("sfx",false)){
                 spEditor.putBoolean("sfx",false);

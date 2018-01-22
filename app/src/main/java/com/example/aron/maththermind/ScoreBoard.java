@@ -1,29 +1,17 @@
 package com.example.aron.maththermind;
 
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.example.aron.maththermind.adapter.CustomListAdapter;
 import com.example.aron.maththermind.model.Items;
-
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 /**
  * Created by breinhold on 20.12.17.
@@ -34,18 +22,7 @@ public class ScoreBoard extends BaseActivity {
     private ListView listView;
     private CustomListAdapter adapter;
     MusicThread musicThread;
-
     Button btnBack;
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-    }
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,11 +63,9 @@ public class ScoreBoard extends BaseActivity {
         } catch (SQLiteException e) {
             e.printStackTrace();
         }
-
         if (itemsList.isEmpty()) {
             Toast.makeText(this, "No Highscores available yet. Time to play!", Toast.LENGTH_LONG).show();
         }
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

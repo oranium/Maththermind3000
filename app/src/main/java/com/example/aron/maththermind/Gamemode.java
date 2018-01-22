@@ -2,7 +2,6 @@ package com.example.aron.maththermind;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -16,7 +15,6 @@ public class Gamemode extends BaseActivity {
 
     private SharedPreferences spLvl;
     private SharedPreferences.Editor lvlEditor;
-
     SeekBar seekBarAddition;
     SeekBar seekBarSubtraction;
     SeekBar seekBarMultiplication;
@@ -24,25 +22,9 @@ public class Gamemode extends BaseActivity {
     Button btnBack;
 
     @Override
-    protected void onPause(){
-        super.onPause();
-
-    }
-    @Override
-    protected void onResume(){
-        super.onResume();
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_gamemode);
-        initialize_activity();
-    }
-
-
-
-    private void initialize_activity(){
         spLvl = getSharedPreferences("level", MODE_PRIVATE);
         lvlEditor = spLvl.edit();
         seekBarAddition = findViewById(R.id.seekBar_addition);
@@ -123,7 +105,6 @@ public class Gamemode extends BaseActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
     }
 
     //the following 4 functions take the current level of each of their respective seekbars and
@@ -184,10 +165,8 @@ public class Gamemode extends BaseActivity {
         lvlEditor.apply();
     }
 
-    private void checkLevel()
-    {
-        if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0)
-        {
+    private void checkLevel() {
+        if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0) {
             Toast.makeText(this, "Enable at least one operation.", Toast.LENGTH_LONG).show();
         }
     }

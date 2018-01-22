@@ -107,7 +107,6 @@ public class VictoryScreen extends BaseActivity {
 
     }
 
-
     private void startGameScreenActivity() {
         // addToScoreboard();
         Intent intent = new Intent(this, GameScreen.class);
