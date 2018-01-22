@@ -45,24 +45,11 @@ public class GameScreen extends BaseActivity {
     MediaPlayer mpWrong,mpCorrect,mpDead;
     MusicThread musicThread;
 
-    @Override
-    protected void onPause(){
-        super.onPause();
-    }
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-    }
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_screen);
         initialize_activity();
     }
-
-
-
 
     public void initialize_activity(){
         musicThread = MainScreen.musicThread;
@@ -115,12 +102,12 @@ public class GameScreen extends BaseActivity {
         if(!(divDif==0)){
             nextOp.add(3);
         }
+
         nextOpSize = nextOp.size();
 
         etInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -135,12 +122,10 @@ public class GameScreen extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
         generate_exercise();
-
         timer_start();
     }
 
@@ -151,7 +136,6 @@ public class GameScreen extends BaseActivity {
     }
 
     private class currentTimeTask extends TimerTask{
-
         public void run(){
             runOnUiThread(new Runnable() {
                 @Override
@@ -159,7 +143,6 @@ public class GameScreen extends BaseActivity {
                     if(second==60){
                         minute--;
                         tvCurrentTime.setText("0"+minute+":59");
-
                     }
                     else if(second>10) {
                         tvCurrentTime.setText("0"+minute + ":" + (second-1));
@@ -167,7 +150,6 @@ public class GameScreen extends BaseActivity {
                     else{
                         tvCurrentTime.setText("0"+minute+":0"+(second-1));
                     }
-
                     if(second>0){
                         second--;
                     }
@@ -183,20 +165,16 @@ public class GameScreen extends BaseActivity {
             gameTimer.cancel();
             startVictoryScreenActivity();
         }
-
     }
 
     //checks the result and adds points or subtracts lives
     public void check_res(int userRes){
         //add corresponding number of points to score if task is right
-        if (userRes == res)
-        {
+        if (userRes == res) {
             solved++;
             solvedInARow++;
             getBonus();
-
-            switch (curOp)
-            {
+            switch (curOp) {
                 case 0:
                     score += addPoints + (addPoints * bonus / 10);
                     break;
@@ -211,7 +189,6 @@ public class GameScreen extends BaseActivity {
                     break;
             }
             updateScore();
-
             if(sfxOn) {
                 if (mpCorrect.isPlaying()) {
                     mpCorrect.stop();
@@ -221,7 +198,6 @@ public class GameScreen extends BaseActivity {
                         e.printStackTrace();
                     }
                 }
-
                 if (mpWrong.isPlaying()) {
                     mpWrong.stop();
                     try {
@@ -232,14 +208,12 @@ public class GameScreen extends BaseActivity {
                 }
                 mpCorrect.start();
             }
-
         //subtract a life otherwise and end the game if lives 0
         }
         else {
             lives--;
             solvedInARow = 0;
             bonus = 0;
-
             switch (lives) {
                 case 2:
                     ivLife3.setVisibility(View.INVISIBLE);
@@ -251,7 +225,6 @@ public class GameScreen extends BaseActivity {
                     ivLife1.setVisibility(View.INVISIBLE);
                     break;
             }
-
             if (sfxOn) {
                 if (mpCorrect.isPlaying()) {
                     mpCorrect.stop();
@@ -261,8 +234,6 @@ public class GameScreen extends BaseActivity {
                         e.printStackTrace();
                     }
                 }
-
-
                 if (mpWrong.isPlaying()) {
                     mpWrong.stop();
                     try {
@@ -277,11 +248,8 @@ public class GameScreen extends BaseActivity {
             }
         }
         updateInARow();
-
-        if (lives == 0)
-        {
+        if (lives == 0) {
             if(sfxOn) {
-
                 mpWrong.stop();
                 mpDead.start();
             }
@@ -290,8 +258,7 @@ public class GameScreen extends BaseActivity {
         }
     }
 
-    private void updateScore()
-    {
+    private void updateScore() {
         String newScore = "";
         if (score >= 10000)
         {
@@ -312,8 +279,7 @@ public class GameScreen extends BaseActivity {
         tvCurrentScore.setText(newScore);
     }
 
-    private void getNextOp()
-    {
+    private void getNextOp() {
         curOp = rand.nextInt(nextOpSize);
         curOp = nextOp.get(curOp);
     }
@@ -451,7 +417,6 @@ public class GameScreen extends BaseActivity {
     private int pointsPerExercise(int operation, int level)
     {
         int points = 0;
-
         switch (operation)
         {
             case 1:
@@ -514,74 +479,57 @@ public class GameScreen extends BaseActivity {
                 }
                 break;
         }
-
         return points;
     }
 
-    private void getBonus()
-    {
+    private void getBonus() {
         // bonus = 1 means 10 %
-        if (solvedInARow >= 50)
-        {
+        if (solvedInARow >= 50) {
             bonus = 40;
         }
-        else if (solvedInARow >= 40)
-        {
+        else if (solvedInARow >= 40) {
             bonus = 25;
         }
-        else if (solvedInARow >= 30)
-        {
+        else if (solvedInARow >= 30) {
             bonus = 20;
         }
-        else if (solvedInARow >= 25)
-        {
+        else if (solvedInARow >= 25) {
             bonus = 15;
         }
-        else if (solvedInARow >= 20)
-        {
+        else if (solvedInARow >= 20) {
             bonus = 12;
         }
-        else if (solvedInARow >= 16)
-        {
+        else if (solvedInARow >= 16) {
             bonus = 9;
         }
-        else if (solvedInARow >= 13)
-        {
+        else if (solvedInARow >= 13) {
             bonus = 7;
         }
-        else if (solvedInARow >= 10)
-        {
+        else if (solvedInARow >= 10) {
             bonus = 5;
         }
-        else if (solvedInARow >= 7)
-        {
+        else if (solvedInARow >= 7) {
             bonus = 3;
         }
-        else if (solvedInARow >= 5)
-        {
+        else if (solvedInARow >= 5) {
             bonus = 2;
         }
-        else if (solvedInARow >= 3)
-        {
+        else if (solvedInARow >= 3) {
             bonus = 1;
         }
     }
 
-    private void updateInARow()
-    {
-        if (solvedInARow > 1)
-        {
+    private void updateInARow() {
+        if (solvedInARow > 1) {
             tvSolvedInARow.setVisibility(View.VISIBLE);
             tvSolvedInARow.setText(solvedInARow + " in a row");
         }
-        else
-        {
+        else {
             tvSolvedInARow.setVisibility(View.INVISIBLE);
         }
     }
 
-    private void startVictoryScreenActivity()
-    {
+    private void startVictoryScreenActivity() {
         spScoreEditor.putInt("score", score);
         spScoreEditor.putInt("lives", lives);
         spScoreEditor.putInt("solved", solved);
@@ -596,8 +544,7 @@ public class GameScreen extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         gameTimer.cancel();
         finish();
     }
