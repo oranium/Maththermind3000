@@ -31,10 +31,7 @@ public class MainScreen extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        initializeApp();
-    }
 
-    private void initializeApp(){
         btn_start = findViewById(R.id.btn_start);
         btn_scoreboard = findViewById(R.id.btn_scoreboard);
         btn_options = findViewById(R.id.btn_options);
@@ -59,8 +56,8 @@ public class MainScreen extends BaseActivity {
                 startOptionsActivity();
             }
         });
-        spLvl = getSharedPreferences("level", MODE_PRIVATE);
 
+        spLvl = getSharedPreferences("level", MODE_PRIVATE);
         spSound = getSharedPreferences("sound",MODE_PRIVATE);
 
         if(spSound.getBoolean("exists",false)==false){
@@ -70,12 +67,11 @@ public class MainScreen extends BaseActivity {
             soundEditor.putBoolean("exists",true);
             musicOn = false;
             soundEditor.apply();
-
         }
-            musicThread = new MusicThread(this);
-            musicOn =(spSound.getBoolean("music",false));
-            musicThread.start();
 
+        musicThread = new MusicThread(this);
+        musicOn =(spSound.getBoolean("music",false));
+        musicThread.start();
 
         if(spLvl.getInt("lvlAdd",-1)==-1){
             SharedPreferences.Editor lvlEditor = spLvl.edit();
@@ -90,8 +86,7 @@ public class MainScreen extends BaseActivity {
         }
     }
 
-    private void startGameScreenActivity()
-    {
+    private void startGameScreenActivity() {
         if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0)
         {
             Toast.makeText(this, "Enable at least one operation in options.", Toast.LENGTH_LONG).show();
@@ -103,17 +98,13 @@ public class MainScreen extends BaseActivity {
         }
     }
 
-    private void startScoreBoardActivity()
-    {
+    private void startScoreBoardActivity() {
         startActivity(
                 new Intent(this, ScoreBoard.class));
     }
 
-    private void startOptionsActivity()
-    {
+    private void startOptionsActivity() {
         startActivity(
                 new Intent(this, Options.class));
     }
-
-
 }
