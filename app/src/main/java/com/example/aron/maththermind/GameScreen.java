@@ -423,10 +423,10 @@ public class GameScreen extends BaseActivity {
                         points = 10;
                         break;
                     case 2:
-                        points = 24;
+                        points = 23;
                         break;
                     case 3:
-                        points = 63;
+                        points = 62;
                         break;
                 }
                 break;
@@ -438,10 +438,10 @@ public class GameScreen extends BaseActivity {
                         points = 12;
                         break;
                     case 2:
-                        points = 28;
+                        points = 29;
                         break;
                     case 3:
-                        points = 89;
+                        points = 88;
                         break;
                 }
                 break;
@@ -453,10 +453,10 @@ public class GameScreen extends BaseActivity {
                         points = 14;
                         break;
                     case 2:
-                        points = 63;
+                        points = 59;
                         break;
                     case 3:
-                        points = 126;
+                        points = 113;
                         break;
                 }
                 break;
@@ -465,13 +465,13 @@ public class GameScreen extends BaseActivity {
                 switch (level)
                 {
                     case 1:
-                        points = 15;
+                        points = 14;
                         break;
                     case 2:
-                        points = 60;
+                        points = 56;
                         break;
                     case 3:
-                        points = 159;
+                        points = 131;
                         break;
                 }
                 break;
