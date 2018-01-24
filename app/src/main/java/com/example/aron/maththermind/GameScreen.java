@@ -166,23 +166,24 @@ public class GameScreen extends BaseActivity {
 
     //checks the result and adds points or subtracts lives
     public void check_res(int userRes){
-        //add corresponding number of points to score if task is right
+        // add corresponding number of points to score if task is right
+        // if player selected more than one operation he will get some extra points
         if (userRes == res) {
             solved++;
             solvedInARow++;
             getBonus();
             switch (curOp) {
                 case 0:
-                    score += addPoints + (addPoints * bonus / 10);
+                    score += addPoints + (addPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
                     break;
                 case 1:
-                    score += subtPoints + (subtPoints * bonus / 10);
+                    score += subtPoints + (subtPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
                     break;
                 case 2:
-                    score += multPoints + (multPoints * bonus / 10);
+                    score += multPoints + (multPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
                     break;
                 case 3:
-                    score += divPoints + (divPoints * bonus / 10);
+                    score += divPoints + (divPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
                     break;
             }
             updateScore();
@@ -413,6 +414,7 @@ public class GameScreen extends BaseActivity {
 
     private int pointsPerExercise(int operation, int level)
     {
+        // the calculation of points is based on the results of some test persons
         int points = 0;
         switch (operation)
         {
