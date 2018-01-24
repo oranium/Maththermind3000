@@ -13,6 +13,7 @@ public class MainScreen extends BaseActivity {
     Button btn_start;
     Button btn_scoreboard;
     Button btn_options;
+    Button btn_credits;
     static boolean musicOn;
     static MusicThread musicThread;
 
@@ -24,6 +25,7 @@ public class MainScreen extends BaseActivity {
         btn_start = findViewById(R.id.btn_start);
         btn_scoreboard = findViewById(R.id.btn_scoreboard);
         btn_options = findViewById(R.id.btn_options);
+        btn_credits = findViewById(R.id.btn_credits);
 
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +45,13 @@ public class MainScreen extends BaseActivity {
             @Override
             public void onClick(View view) {
                 startOptionsActivity();
+            }
+        });
+
+        btn_credits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCreditsActivity();
             }
         });
 
@@ -95,5 +104,10 @@ public class MainScreen extends BaseActivity {
     private void startOptionsActivity() {
         startActivity(
                 new Intent(this, Options.class));
+    }
+
+    private void startCreditsActivity() {
+        startActivity(
+                new Intent(this, Credits.class));
     }
 }

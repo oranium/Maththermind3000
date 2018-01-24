@@ -21,14 +21,14 @@
         app:layout_constraintVertical_bias="0.194">
 
         <Button
-            android:id="@+id/btn_options"
+            android:id="@+id/btn_scoreboard"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="0dp"
             android:layout_marginStart="0dp"
             android:background="@color/colorPrimaryDark"
-            android:text="@string/options"
+            android:text="@string/scoreboard"
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -36,11 +36,21 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btn_scoreboard"
+            android:id="@+id/btn_options"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/options"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_credits"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@color/colorPrimaryDark"
-            android:text="@string/scoreboard"
+            android:text="Credits"
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
 
@@ -54,7 +64,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="MAIN MENU"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp"
