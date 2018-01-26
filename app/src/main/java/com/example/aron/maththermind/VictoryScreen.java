@@ -96,7 +96,7 @@ public class VictoryScreen extends BaseActivity {
 
         if (checkNewHighscore()) {
             startNewHighscoreActivity();
-            if (lives != 0) {
+            if (lives != 0 && sfxOn) {
                 mpApplause.start();
             }
         }

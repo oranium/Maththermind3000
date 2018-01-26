@@ -52,7 +52,7 @@
             android:id="@+id/imageView_life2"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_above="@+id/txtView_exercise"
+            android:layout_above="@+id/relativeLayout50"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="25dp"
             android:background="@color/colorPrimaryDark"
@@ -65,7 +65,7 @@
             android:id="@+id/editTextInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtView_exercise"
+            android:layout_below="@+id/relativeLayout50"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
             android:ems="3"
@@ -84,6 +84,26 @@
             android:textColor="@android:color/background_light"
             android:textSize="60sp"
             android:textStyle="italic" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout50"
+            android:layout_width="match_parent"
+            android:layout_height="81dp"
+            android:layout_below="@+id/relativeLayout5"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible" >
+
+            <io.github.kexanie.library.MathView
+                android:id="@+id/mathView_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:engine="MathJax"
+                app:text="$$\\Huge \\color{white}{log_2 x}$$">
+            </io.github.kexanie.library.MathView>
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/relativeLayout5"

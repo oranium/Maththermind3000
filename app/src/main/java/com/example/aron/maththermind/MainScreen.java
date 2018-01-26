@@ -77,6 +77,7 @@ public class MainScreen extends BaseActivity {
             lvlEditor.putInt("lvlSubt",1);
             lvlEditor.putInt("lvlDiv",1);
             lvlEditor.putInt("lvlMult",1);
+            lvlEditor.putInt("hardcore", 0);
             lvlEditor.apply();
             Toast.makeText(
                     this,"Edited preferences: enabled everything",Toast.LENGTH_LONG)
@@ -85,7 +86,7 @@ public class MainScreen extends BaseActivity {
     }
 
     private void startGameScreenActivity() {
-        if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0)
+        if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0 && spLvl.getInt("hardcore", 0) == 0)
         {
             Toast.makeText(this, "Enable at least one operation in options.", Toast.LENGTH_LONG).show();
         }

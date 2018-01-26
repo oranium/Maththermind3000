@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,20 +17,25 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Random;
+
+import io.github.kexanie.library.MathView;
+
 /**
  * Created by breinhold on 20.12.17.
  */
 
 public class GameScreen extends BaseActivity {
-    TextView tvCurrentTime,tvCurrentScore,tvExercise, tvSolvedInARow;
+    TextView tvCurrentTime,tvCurrentScore, tvExercise, tvSolvedInARow;
+    MathView mvExercise;
+    RelativeLayout rlExercise;
     ImageView ivLife1,ivLife2,ivLife3;
     EditText etInput;
     int minute,second;
     int op1,op2,res;
     int score, solved, solvedInARow, bonus;
     short lives;
-    int addPoints,subtPoints,multPoints,divPoints;
-    int addDif,subtDif,multDif,divDif;
+    int addPoints,subtPoints,multPoints,divPoints,hardcorePoints;
+    int addDif,subtDif,multDif,divDif, hardcore;
     Boolean sfxOn,musicOn;
     List<Integer> nextOp;
     int nextOpSize;
@@ -57,6 +63,8 @@ public class GameScreen extends BaseActivity {
         tvCurrentTime =(findViewById(R.id.txtView_currenttime));
         tvCurrentScore=(findViewById((R.id.txtView_currentscore)));
         tvExercise=(findViewById(R.id.txtView_exercise));
+        mvExercise=findViewById(R.id.mathView_exercise);
+        rlExercise=findViewById(R.id.relativeLayout50);
         tvSolvedInARow = findViewById(R.id.txtView_solved_in_a_row);
         tvSolvedInARow.setVisibility(View.INVISIBLE);
         ivLife1=findViewById(R.id.imageView_life1);
@@ -78,10 +86,12 @@ public class GameScreen extends BaseActivity {
         subtDif=spLevel.getInt("lvlSubt",1);
         multDif=spLevel.getInt("lvlMult",1);
         divDif=spLevel.getInt("lvlDiv",1);
+        hardcore = spLevel.getInt("hardcore", 0);
         addPoints = pointsPerExercise(1, addDif);
         subtPoints = pointsPerExercise(2, subtDif);
         multPoints = pointsPerExercise(3, multDif);
         divPoints = pointsPerExercise(4, divDif);
+        hardcorePoints = 200;
         sfxOn = spSound.getBoolean("sfx",false);
         musicOn = MainScreen.musicOn;
         nextOp = new ArrayList<>();
@@ -99,8 +109,17 @@ public class GameScreen extends BaseActivity {
         if(!(divDif==0)){
             nextOp.add(3);
         }
-
         nextOpSize = nextOp.size();
+
+        if(hardcore == 1)
+        {
+            // this is needed, cause without operation the app will crush
+            nextOp.add(0);
+            nextOpSize = nextOp.size();
+
+            tvExercise.setVisibility(View.INVISIBLE);
+            rlExercise.setVisibility(View.VISIBLE);
+        }
 
         etInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -172,19 +191,26 @@ public class GameScreen extends BaseActivity {
             solved++;
             solvedInARow++;
             getBonus();
-            switch (curOp) {
-                case 0:
-                    score += addPoints + (addPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
-                    break;
-                case 1:
-                    score += subtPoints + (subtPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
-                    break;
-                case 2:
-                    score += multPoints + (multPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
-                    break;
-                case 3:
-                    score += divPoints + (divPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
-                    break;
+            if (hardcore == 1)
+            {
+                score += hardcorePoints + (hardcorePoints * bonus / 10);
+            }
+            else
+            {
+                switch (curOp) {
+                    case 0:
+                        score += addPoints + (addPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
+                        break;
+                    case 1:
+                        score += subtPoints + (subtPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
+                        break;
+                    case 2:
+                        score += multPoints + (multPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
+                        break;
+                    case 3:
+                        score += divPoints + (divPoints * bonus / 10) + (addPoints * (nextOpSize - 1) / 10);
+                        break;
+                }
             }
             updateScore();
             if(sfxOn) {
@@ -283,28 +309,46 @@ public class GameScreen extends BaseActivity {
     }
 
     public void generate_exercise(){
-        getNextOp();
         String newExercise = "";
-        switch(curOp){
-            case 0:
-                generate_addition();
-                newExercise = op1 + " + ";
-                break;
-            case 1:
-                generate_subtraction();
-                newExercise = op1 + " - ";
-                break;
-            case 2:
-                generate_multiplication();
-                newExercise = op1 + " * ";
-                break;
-            case 3:
-                generate_division();
-                newExercise = Integer.toString(op1) + " : ";
-                break;
+        if (hardcore == 1)
+        {
+            curOp = rand.nextInt(2);
+            generate_hardcore(curOp);
+            switch (curOp)
+            {
+                case 0:
+                    newExercise = "$$\\Huge \\color{white}{" + op1 + "^{" + op2 + "} = ?}$$";
+                    break;
+                case 1:
+                    newExercise = "$$\\Huge \\color{white}{\\sqrt[" + op2 + "]{" + op1 + "} = ?}$$";
+                    break;
+            }
+            mvExercise.setText(newExercise);
         }
-        newExercise += Integer.toString(op2) + " = ?";
-        tvExercise.setText(newExercise);
+        else
+        {
+            getNextOp();
+            switch(curOp){
+                case 0:
+                    generate_addition();
+                    newExercise = op1 + " + ";
+                    break;
+                case 1:
+                    generate_subtraction();
+                    newExercise = op1 + " - ";
+                    break;
+                case 2:
+                    generate_multiplication();
+                    newExercise = op1 + " * ";
+                    break;
+                case 3:
+                    generate_division();
+                    newExercise = Integer.toString(op1) + " : ";
+                    break;
+            }
+            newExercise += Integer.toString(op2) + " = ?";
+            tvExercise.setText(newExercise);
+        }
     }
 
     public void generate_addition(){
@@ -408,6 +452,69 @@ public class GameScreen extends BaseActivity {
                 res = rand.nextInt(31);
                 op2 = rand.nextInt(10) + 21;
                 op1 = res * op2;
+                break;
+        }
+    }
+
+    public void generate_hardcore(int operation)
+    {
+        switch(operation)
+        {
+            case 0:
+                // exponential
+                switch(rand.nextInt(5))
+                {
+                    case 0:
+                        op1 = 2;
+                        op2 = rand.nextInt(9) + 5;
+                        break;
+                    case 1:
+                        op1 = rand.nextInt(4) + 3;
+                        op2 = rand.nextInt(3) + 3;
+                        break;
+                    case 2:
+                        op1 = rand.nextInt(4) + 7;
+                        op2 = rand.nextInt(2) + 3;
+                        break;
+                    case 3:
+                        op1 = rand.nextInt(5) + 11;
+                        op2 = 3;
+                        break;
+                    case 4:
+                        op1 = rand.nextInt(20) + 31;
+                        op2 = 2;
+                        break;
+                }
+                res = (int) Math.pow((double) op1, (double) op2);
+                break;
+            case 1:
+                // root
+                switch(rand.nextInt(4))
+                {
+                    case 0:
+                        res = rand.nextInt(4) + 3;
+                        op2 = rand.nextInt(3) + 3;
+                        break;
+                    case 1:
+                        res = rand.nextInt(4) + 7;
+                        op2 = rand.nextInt(2) + 3;
+                        break;
+                    case 2:
+                        res = rand.nextInt(5) + 11;
+                        op2 = 3;
+                        break;
+                    case 3:
+                        res = rand.nextInt(20) + 31;
+                        op2 = 2;
+                        break;
+                }
+                op1 = (int) Math.pow((double) res, (double) op2);
+                break;
+            case 2:
+                // logarithm
+                break;
+            case 3:
+                // modulo
                 break;
         }
     }

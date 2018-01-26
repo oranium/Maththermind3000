@@ -1,6 +1,8 @@
 package com.example.aron.maththermind;
 
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +21,9 @@ public class Gamemode extends BaseActivity {
     SeekBar seekBarSubtraction;
     SeekBar seekBarMultiplication;
     SeekBar seekBarDivision;
+    SeekBar seekBarHardcore;
     Button btnBack;
+    int scoreForHardcore = 2500;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,11 +35,27 @@ public class Gamemode extends BaseActivity {
         seekBarSubtraction = findViewById(R.id.seekBar_subtraction);
         seekBarMultiplication = findViewById(R.id.seekBar_multiplication);
         seekBarDivision = findViewById(R.id.seekBar_division);
+        seekBarHardcore = findViewById(R.id.seekBar_hardcore);
         seekBarAddition.setProgress(spLvl.getInt("lvlAdd", 1));
         seekBarSubtraction.setProgress(spLvl.getInt("lvlSubt", 1));
         seekBarMultiplication.setProgress(spLvl.getInt("lvlMult", 1));
         seekBarDivision.setProgress(spLvl.getInt("lvlDiv", 1));
+        seekBarHardcore.setProgress(spLvl.getInt("hardcore", 0));
         btnBack = findViewById(R.id.btn_back1);
+
+
+        if (!isHardcoreEnabled())
+        {
+            seekBarHardcore.setEnabled(false);
+            Toast.makeText(this, "Reach " + scoreForHardcore + " points to enable the hardcore mode!", Toast.LENGTH_LONG).show();
+        }
+        if (spLvl.getInt("hardcore", 0) == 1)
+        {
+            seekBarAddition.setEnabled(false);
+            seekBarSubtraction.setEnabled(false);
+            seekBarMultiplication.setEnabled(false);
+            seekBarDivision.setEnabled(false);
+        }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +114,22 @@ public class Gamemode extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 changeDiv((short) i);
+                checkLevel();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        seekBarHardcore.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                changeHard((short) i);
                 checkLevel();
             }
 
@@ -165,10 +201,47 @@ public class Gamemode extends BaseActivity {
         lvlEditor.apply();
     }
 
+    private void changeHard(short seekBarLevel)
+    {
+        switch(seekBarLevel) {
+            case 0:
+                lvlEditor.putInt("hardcore", 0);
+                seekBarAddition.setEnabled(true);
+                seekBarSubtraction.setEnabled(true);
+                seekBarMultiplication.setEnabled(true);
+                seekBarDivision.setEnabled(true);
+                break;
+            case 1:
+                lvlEditor.putInt("hardcore", 1);
+                seekBarAddition.setEnabled(false);
+                seekBarSubtraction.setEnabled(false);
+                seekBarMultiplication.setEnabled(false);
+                seekBarDivision.setEnabled(false);
+                break;
+        }
+        lvlEditor.apply();
+    }
+
     private void checkLevel() {
-        if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0) {
+        if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0 && spLvl.getInt("hardcore", 0) == 0) {
             Toast.makeText(this, "Enable at least one operation.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private boolean isHardcoreEnabled()
+    {
+        try {
+            SQLiteDatabase scoreDB = this.openOrCreateDatabase("scoreboard",MODE_PRIVATE,null);
+            Cursor cursor = scoreDB.rawQuery("SELECT  * FROM scores ORDER BY score DESC", null);
+            cursor.moveToPosition(0);
+            if (Integer.parseInt(cursor.getString(1)) >= scoreForHardcore){
+                return true;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
 
