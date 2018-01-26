@@ -312,15 +312,18 @@ public class GameScreen extends BaseActivity {
         String newExercise = "";
         if (hardcore == 1)
         {
-            curOp = rand.nextInt(2);
+            curOp = rand.nextInt(3);
             generate_hardcore(curOp);
             switch (curOp)
             {
                 case 0:
-                    newExercise = "$$\\Huge \\color{white}{" + op1 + "^{" + op2 + "} = ?}$$";
+                    newExercise = "$$\\Huge \\color{white}{" + op1 + "^{" + op2 + "} =  ?}$$";
                     break;
                 case 1:
-                    newExercise = "$$\\Huge \\color{white}{\\sqrt[" + op2 + "]{" + op1 + "} = ?}$$";
+                    newExercise = "$$\\Huge \\color{white}{\\sqrt[" + op2 + "]{" + op1 + "} =  ?}$$";
+                    break;
+                case 2:
+                    newExercise = "$$\\Huge \\color{white}{\\log_{" + op2 + "} " + op1 + " =  ?}$$";
                     break;
             }
             mvExercise.setText(newExercise);
@@ -512,6 +515,26 @@ public class GameScreen extends BaseActivity {
                 break;
             case 2:
                 // logarithm
+                switch(rand.nextInt(4))
+                {
+                    case 0:
+                        op2 = rand.nextInt(4) + 3;
+                        res = rand.nextInt(3) + 3;
+                        break;
+                    case 1:
+                        op2 = rand.nextInt(4) + 7;
+                        res = rand.nextInt(2) + 3;
+                        break;
+                    case 2:
+                        op2 = rand.nextInt(5) + 11;
+                        res = 3;
+                        break;
+                    case 3:
+                        op2 = rand.nextInt(20) + 31;
+                        res = 2;
+                        break;
+                }
+                op1 = (int) Math.pow((double) op2, (double) res);
                 break;
             case 3:
                 // modulo
