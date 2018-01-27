@@ -31,7 +31,7 @@ public class GameScreen extends BaseActivity {
     ImageView ivLife1,ivLife2,ivLife3;
     EditText etInput;
     int minute,second;
-    int op1,op2,res;
+    int op1,op2,op3,res,ophelp;
     int score, solved, solvedInARow, bonus;
     short lives;
     int addPoints,subtPoints,multPoints,divPoints,hardcorePoints;
@@ -91,7 +91,7 @@ public class GameScreen extends BaseActivity {
         subtPoints = pointsPerExercise(2, subtDif);
         multPoints = pointsPerExercise(3, multDif);
         divPoints = pointsPerExercise(4, divDif);
-        hardcorePoints = 200;
+        hardcorePoints = 500;
         sfxOn = spSound.getBoolean("sfx",false);
         musicOn = MainScreen.musicOn;
         nextOp = new ArrayList<>();
@@ -312,7 +312,7 @@ public class GameScreen extends BaseActivity {
         String newExercise = "";
         if (hardcore == 1)
         {
-            curOp = rand.nextInt(3);
+            curOp = rand.nextInt(6);
             generate_hardcore(curOp);
             switch (curOp)
             {
@@ -324,6 +324,36 @@ public class GameScreen extends BaseActivity {
                     break;
                 case 2:
                     newExercise = "$$\\Huge \\color{white}{\\log_{" + op2 + "} " + op1 + " =  ?}$$";
+                    break;
+                case 3:
+                    newExercise = "$$\\Huge \\color{white}{" + op1 + "^{" + op2 + "} =  ? (mod  " + op3 + ")}$$";
+                    break;
+                case 4:
+                    if (op3 >= 0)
+                    {
+                        newExercise = "$$\\huge \\color{white}{|" + op1 + " - " + op2 + "| + " + op3 + " =  ?}$$";
+                    }
+                    else
+                    {
+                        newExercise = "$$\\huge \\color{white}{|" + op1 + " - " + op2 + "| - " + Math.abs(op3) + " =  ?}$$";
+                    }
+                    break;
+                case 5:
+                    switch (ophelp)
+                    {
+                        case 0:
+                            newExercise = "$$\\huge \\color{white}{" + op1 + " + " + op2 + " * " + op3 + " =  ?}$$";
+                            break;
+                        case 1:
+                            newExercise = "$$\\huge \\color{white}{" + op1 + " - " + op2 + " * " + op3 + " =  ?}$$";
+                            break;
+                        case 2:
+                            newExercise = "$$\\huge \\color{white}{" + op1 + " + \\sqrt{" + op2 + "} =  ?}$$";
+                            break;
+                        case 3:
+                            newExercise = "$$\\huge \\color{white}{" + op1 + " - \\sqrt{" + op2 + "} =  ?}$$";
+                            break;
+                    }
                     break;
             }
             mvExercise.setText(newExercise);
@@ -465,25 +495,33 @@ public class GameScreen extends BaseActivity {
         {
             case 0:
                 // exponential
-                switch(rand.nextInt(5))
+                switch(rand.nextInt(13))
                 {
                     case 0:
+                    case 1:
                         op1 = 2;
                         op2 = rand.nextInt(9) + 5;
                         break;
-                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
                         op1 = rand.nextInt(4) + 3;
                         op2 = rand.nextInt(3) + 3;
                         break;
-                    case 2:
+                    case 5:
+                    case 6:
                         op1 = rand.nextInt(4) + 7;
                         op2 = rand.nextInt(2) + 3;
                         break;
-                    case 3:
+                    case 7:
                         op1 = rand.nextInt(5) + 11;
                         op2 = 3;
                         break;
-                    case 4:
+                    case 8:
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
                         op1 = rand.nextInt(20) + 31;
                         op2 = 2;
                         break;
@@ -492,21 +530,28 @@ public class GameScreen extends BaseActivity {
                 break;
             case 1:
                 // root
-                switch(rand.nextInt(4))
+                switch(rand.nextInt(11))
                 {
                     case 0:
+                    case 1:
+                    case 2:
                         res = rand.nextInt(4) + 3;
                         op2 = rand.nextInt(3) + 3;
                         break;
-                    case 1:
+                    case 3:
+                    case 4:
                         res = rand.nextInt(4) + 7;
                         op2 = rand.nextInt(2) + 3;
                         break;
-                    case 2:
+                    case 5:
                         res = rand.nextInt(5) + 11;
                         op2 = 3;
                         break;
-                    case 3:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
                         res = rand.nextInt(20) + 31;
                         op2 = 2;
                         break;
@@ -518,18 +563,25 @@ public class GameScreen extends BaseActivity {
                 switch(rand.nextInt(4))
                 {
                     case 0:
+                    case 1:
+                    case 2:
                         op2 = rand.nextInt(4) + 3;
                         res = rand.nextInt(3) + 3;
                         break;
-                    case 1:
+                    case 3:
+                    case 4:
                         op2 = rand.nextInt(4) + 7;
                         res = rand.nextInt(2) + 3;
                         break;
-                    case 2:
+                    case 5:
                         op2 = rand.nextInt(5) + 11;
                         res = 3;
                         break;
-                    case 3:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
                         op2 = rand.nextInt(20) + 31;
                         res = 2;
                         break;
@@ -538,6 +590,62 @@ public class GameScreen extends BaseActivity {
                 break;
             case 3:
                 // modulo
+                op1 = rand.nextInt(9) + 2;
+                op2 = rand.nextInt(9) + 4;
+                op3 = rand.nextInt(op1) + op1 + 1;
+                res = (int) Math.pow((double) op1, (double) op2) % op3;
+                break;
+            case 4:
+                // absolute value
+                if (rand.nextInt(2) == 0)
+                {
+                    op1 = rand.nextInt(500) + 1;
+                    op2 = rand.nextInt(500) + 1 + op1;
+                    op3 = rand.nextInt(500) + 1;
+                    res = Math.abs(op1 - op2) + op3;
+                }
+                else
+                {
+                    op1 = rand.nextInt(500) + 1;
+                    op2 = rand.nextInt(500) + 1 + op1;
+                    res = Math.abs(op1 - op2);
+                    op3 = rand.nextInt(res) + 1;
+                    op3 *= -1;
+                    res = res + op3;
+                }
+                break;
+            case 5:
+                // 2 operations
+                ophelp = rand.nextInt(4);
+                switch (ophelp)
+                {
+                    case 0:
+                        // x + y * z
+                        op1 = rand.nextInt(500) + 1;
+                        op2 = rand.nextInt(31);
+                        op3 = rand.nextInt(31);
+                        res = op1 + (op2 * op3);
+                        break;
+                    case 1:
+                        // x - y * z
+                        op2 = rand.nextInt(31);
+                        op3 = rand.nextInt(31);
+                        op1 = rand.nextInt(500) + 1 + (op2 * op3);
+                        res = op1 - (op2 * op3);
+                        break;
+                    case 2:
+                        // x + sqrt(y)
+                        op1 = rand.nextInt(1000);
+                        op2 = (int) Math.pow((double) rand.nextInt(31), (double) 2);
+                        res = op1 + (int) Math.sqrt((double) op2);
+                        break;
+                    case 3:
+                        // x - sqrt(y)
+                        op1 = rand.nextInt(1000) + 30;
+                        op2 = (int) Math.pow((double) rand.nextInt(31), (double) 2);
+                        res = op1 - (int) Math.sqrt((double) op2);
+                        break;
+                }
                 break;
         }
     }

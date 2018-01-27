@@ -289,7 +289,7 @@
             android:layout_toLeftOf="@+id/seekBar_hardcore"
             android:layout_toStartOf="@+id/seekBar_hardcore"
             android:background="@color/colorPrimaryDark"
-            android:text="Hardcore mode"
+            android:text="Hardcore mode (beta)"
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
     </RelativeLayout>
