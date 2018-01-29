@@ -203,6 +203,7 @@ public class Gamemode extends BaseActivity {
 
     private void changeHard(short seekBarLevel)
     {
+        // enabling the hardcore mode disables all other operations
         switch(seekBarLevel) {
             case 0:
                 lvlEditor.putInt("hardcore", 0);
@@ -223,6 +224,7 @@ public class Gamemode extends BaseActivity {
     }
 
     private void checkLevel() {
+        // you'll get a note when no operation is selected
         if (spLvl.getInt("lvlAdd", 0) == 0 && spLvl.getInt("lvlSubt", 0) == 0 && spLvl.getInt("lvlMult", 0) == 0 && spLvl.getInt("lvlDiv", 0) == 0 && spLvl.getInt("hardcore", 0) == 0) {
             Toast.makeText(this, "Enable at least one operation.", Toast.LENGTH_LONG).show();
         }

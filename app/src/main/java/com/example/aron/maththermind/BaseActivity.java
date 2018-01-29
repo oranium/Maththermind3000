@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
+    // the base activity is necessary to check if the app is in foreground or background, we don't want to play background music while you are checking your mails or something like this
 
     public void onCreate(Bundle savedInstanceState) {
 

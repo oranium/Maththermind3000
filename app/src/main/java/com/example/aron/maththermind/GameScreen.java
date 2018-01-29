@@ -320,6 +320,7 @@ public class GameScreen extends BaseActivity {
             generate_hardcore(curOp);
             switch (curOp)
             {
+                // exercises in hardcore mode use mathview
                 case 0:
                     newExercise = "$$\\Huge \\color{white}{" + op1 + "^{" + op2 + "} =  ?}$$";
                     break;
@@ -472,7 +473,6 @@ public class GameScreen extends BaseActivity {
         }
     }
 
-    //this is done by switching variables from multiplication. maybe its wrong. am lazy. <-- yes, it was wrong. :D
     public void generate_division(){
         switch(divDif){
             case 1:
