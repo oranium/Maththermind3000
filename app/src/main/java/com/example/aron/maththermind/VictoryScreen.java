@@ -104,7 +104,7 @@ public class VictoryScreen extends BaseActivity {
         showScore();
         tvSolved.setText("You solved " + solved + " exercises.");
 
-        if (checkNewHighscore()) {
+        if (checkNewHighscore() && score > 0) {
             startNewHighscoreActivity();
             if (lives != 0 && sfxOn) {
                 mpApplause.start();
@@ -118,14 +118,12 @@ public class VictoryScreen extends BaseActivity {
     }
 
     private void startGameScreenActivity() {
-        // addToScoreboard();
         Intent intent = new Intent(this, GameScreen.class);
         startActivity(intent);
         finish();
     }
 
     private void startScoreBoardActivity() {
-        // addToScoreboard();
         Intent intent = new Intent(this, ScoreBoard.class);
         startActivity(intent);
         finish();

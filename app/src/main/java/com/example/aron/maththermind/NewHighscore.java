@@ -14,6 +14,7 @@ import android.widget.Toast;
 import static android.content.Context.MODE_PRIVATE;
 
 public class NewHighscore extends Dialog implements android.view.View.OnClickListener {
+    // dialog popup to enter your name on new highscore
     public Activity activity;
     public Button save;
     public EditText etEnterName;
