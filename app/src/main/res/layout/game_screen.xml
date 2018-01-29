@@ -26,12 +26,11 @@
             android:layout_marginStart="22dp"
             android:layout_toEndOf="@+id/imageView_life2"
             android:layout_toRightOf="@+id/imageView_life2"
-            android:background="@color/colorPrimaryDark"
             android:contentDescription="todo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/white_skull" />
+            app:srcCompat="@mipmap/icon_heart" />
 
         <ImageView
             android:id="@+id/imageView_life1"
@@ -42,11 +41,10 @@
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/imageView_life2"
             android:layout_toStartOf="@+id/imageView_life2"
-            android:background="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/white_skull" />
+            app:srcCompat="@mipmap/icon_heart" />
 
         <ImageView
             android:id="@+id/imageView_life2"
@@ -55,11 +53,10 @@
             android:layout_above="@+id/relativeLayout50"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="25dp"
-            android:background="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/white_skull" />
+            app:srcCompat="@mipmap/icon_heart" />
 
         <EditText
             android:id="@+id/editTextInput"

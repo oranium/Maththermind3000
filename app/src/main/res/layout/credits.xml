@@ -41,7 +41,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="App created by: \nAron Gaden, Bruno Reinhold, Marvin Herrmann \n\nMany thanks to: \nIngrid S., Anne W., Manuel H. and Tim D.\n\nGraphics by: \n \n\nMusic and Sounds by: \nwww.soundeffectsplus.com"
+            android:text="App created by: \nAron Gaden, Bruno Reinhold and \nMarvin Herrmann \n\nMany thanks to: \nIngrid S., Anne W., Manuel H. and Tim D.\n\nGraphics by: \nwww.freepik.com \n\nMusic and Sounds by: \nwww.soundeffectsplus.com"
             android:layout_marginTop="60.0dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="17sp"

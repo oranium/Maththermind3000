@@ -2,6 +2,7 @@ package com.example.aron.maththermind;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
@@ -240,13 +241,16 @@ public class GameScreen extends BaseActivity {
             bonus = 0;
             switch (lives) {
                 case 2:
-                    ivLife3.setVisibility(View.INVISIBLE);
+                    ivLife3.setBackgroundResource(R.color.colorPrimaryDark);
+                    ivLife3.setImageResource(R.mipmap.white_skull);
                     break;
                 case 1:
-                    ivLife2.setVisibility(View.INVISIBLE);
+                    ivLife2.setBackgroundResource(R.color.colorPrimaryDark);
+                    ivLife2.setImageResource(R.mipmap.white_skull);
                     break;
                 case 0:
-                    ivLife1.setVisibility(View.INVISIBLE);
+                    ivLife1.setBackgroundResource(R.color.colorPrimaryDark);
+                    ivLife1.setImageResource(R.mipmap.white_skull);
                     break;
             }
             if (sfxOn) {

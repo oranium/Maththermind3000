@@ -157,13 +157,16 @@ public class VictoryScreen extends BaseActivity {
 
     private void showLives() {
         if (lives < 3){
-            ivLife3.setVisibility(View.INVISIBLE);
+            ivLife3.setBackgroundResource(R.color.colorPrimaryDark);
+            ivLife3.setImageResource(R.mipmap.white_skull);
         }
         if (lives < 2){
-            ivLife2.setVisibility(View.INVISIBLE);
+            ivLife2.setBackgroundResource(R.color.colorPrimaryDark);
+            ivLife2.setImageResource(R.mipmap.white_skull);
         }
         if (lives < 1){
-            ivLife1.setVisibility(View.INVISIBLE);
+            ivLife1.setBackgroundResource(R.color.colorPrimaryDark);
+            ivLife1.setImageResource(R.mipmap.white_skull);
         }
     }
 
