@@ -771,6 +771,15 @@ public class GameScreen extends BaseActivity {
     }
 
     private void startVictoryScreenActivity() {
+        // get some extra points if you have more than one life left
+        if (lives == 3)
+        {
+            score += score / 5;
+        }
+        else if (lives == 2)
+        {
+            score += score / 10;
+        }
         spScoreEditor.putInt("score", score);
         spScoreEditor.putInt("lives", lives);
         spScoreEditor.putInt("solved", solved);

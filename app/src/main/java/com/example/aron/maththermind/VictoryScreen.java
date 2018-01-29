@@ -91,15 +91,6 @@ public class VictoryScreen extends BaseActivity {
             }
         });
 
-        // get some extra points if you have more than one life left
-        if (lives == 3)
-        {
-            score += score / 5;
-        }
-        else if (lives == 2)
-        {
-            score += score / 10;
-        }
         showLives();
         showScore();
         tvSolved.setText("You solved " + solved + " exercises.");
