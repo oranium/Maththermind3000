@@ -796,6 +796,18 @@ public class GameScreen extends BaseActivity {
     @Override
     public void onBackPressed() {
         gameTimer.cancel();
+        if(!mpWrong.isPlaying()) {
+            mpWrong.release();
+            mpWrong = null;
+        }
+        if(!mpCorrect.isPlaying()) {
+            mpCorrect.release();
+            mpCorrect = null;
+        }
+        if(!mpDead.isPlaying()) {
+            mpDead.release();
+            mpDead = null;
+        }
         finish();
     }
 
