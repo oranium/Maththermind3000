@@ -63,7 +63,7 @@ public class ScoreBoard extends BaseActivity {
         } catch (SQLiteException e) {
             e.printStackTrace();
         }
-        if (itemsList.isEmpty()) {
+        if (itemsList.size() == 1) {
             Toast.makeText(this, "No Highscores available yet. Time to play!", Toast.LENGTH_LONG).show();
         }
         btnBack.setOnClickListener(new View.OnClickListener() {
